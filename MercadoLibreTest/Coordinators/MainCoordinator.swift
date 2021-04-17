@@ -18,7 +18,10 @@ class MainCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = MainTabBarController()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: String(describing: MainTabBarController.self)) as? MainTabBarController else {
+            return
+        }
         navigationController.pushViewController(vc, animated: true)
     }
 }

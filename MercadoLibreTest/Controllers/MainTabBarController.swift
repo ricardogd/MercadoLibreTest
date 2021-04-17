@@ -11,6 +11,7 @@ class MainTabBarController: UITabBarController {
     
     let homeCoordinator = HomeCoordinator(navigationController: UINavigationController())
     let aboutCoordinator = AboutCoordinator(navigationController: UINavigationController())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true

@@ -21,7 +21,8 @@ class HomeCoordinator: Coordinator {
         self.navigationController = navigationController
         self.navigationController.navigationBar.prefersLargeTitles = true
 
-        let vc = UIHostingController(rootView: HomeView())
+        let homeViewModel = HomeViewModel(coordinator: self)
+        let vc = UIHostingController(rootView: HomeView(homeViewModel: homeViewModel))
         vc.title = Constants.homeTitle
         vc.tabBarItem = setUpTabBar()
         
@@ -33,5 +34,10 @@ class HomeCoordinator: Coordinator {
                                                          image: UIImage(named: Constants.homeTabBarIcon),
                                                          tag: 0)
         return customTabBarItem
+    }
+    
+    func navigateToDetail() {
+        let vc = UIHostingController(rootView: ProductsListView())
+        self.navigationController.pushViewController(vc, animated: true)
     }
 }
