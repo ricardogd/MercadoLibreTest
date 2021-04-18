@@ -9,10 +9,11 @@ import SwiftUI
 
 struct ProductListItem: View {
     
+    //MARK: - States
     @StateObject var productItemViewModel: ProductItemViewModel
     
+    //MARK: - Content View
     var body: some View {
-        
         
         GeometryReader { geometry in
             ZStack {
@@ -20,46 +21,33 @@ struct ProductListItem: View {
                     .foregroundColor(CustomColors.lightGray)
                     .frame(width: geometry.size.width, height: 180)
                     .cornerRadius(10)
-//                    .padding(10)
+                    .shadow(radius: 5)
                 
                 HStack() {
                     //Loading image animation - image place holder - product image
                     VStack(alignment: .leading) {
-                        URLImage(urlImageViewModel: productItemViewModel.productImage)
+                        URLImageView(urlImageViewModel: productItemViewModel.productImage)
                     }
-                    .padding(.leading, 25)
+                    .padding(.leading, 10)
                         
                     //Product labels
                     VStack(alignment: .leading) {
-                        Text("Product \nTitle")
-                            .padding(.top, 5)
-                        HStack {
-                            Text("Product Price")
-                                .font(.title)
-                                .padding(.top, 5)
-                            Text("COL")
-                                .padding(.top, 5)
-                        }
-                        HStack {
-                            Text("en")
-                                .padding(.top, 5)
-                            Text("12x $20000")
-                                .padding(.top, 5)
-                            Text("sin interés")
-                                .padding(.top, 5)
-                        }
-                        Text("Shipping")
+                        Text(productItemViewModel.productTitle)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(3)
+                        ProductPriceTextView(priceText: productItemViewModel.productPrice, currencyText: productItemViewModel.productCurrency)
+                        ProductInstallmentsView(payments: productItemViewModel.productInstallments, interestRate: productItemViewModel.hasInterestRate)
+                        Text(productItemViewModel.productShipping)
+                            .foregroundColor(CustomColors.green)
                             .padding(.top, 5)
                     }
-                    .padding(.leading, 10)
+                    .padding(.leading, 5)
                     
                     Spacer()
                 }
-                .frame(height: 200)
+                .frame(height: 180)
             }
-
         }
-        
     }
 }
 

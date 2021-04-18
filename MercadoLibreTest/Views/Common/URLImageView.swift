@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct URLImage: View {
+struct URLImageView: View {
     
     @StateObject var urlImageViewModel: URLImageViewModel
     
@@ -27,6 +27,6 @@ struct URLImage: View {
 
 struct URLImage_Previews: PreviewProvider {
     static var previews: some View {
-        URLImage(urlImageViewModel: URLImageViewModel(url: ""))
+        URLImageView(urlImageViewModel: URLImageViewModel(url: ""))
     }
 }

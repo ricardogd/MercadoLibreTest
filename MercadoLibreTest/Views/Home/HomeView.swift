@@ -23,7 +23,7 @@ struct HomeView: View {
                     .edgesIgnoringSafeArea(.all)
                     .frame(height: 90)
                 
-                SearchBar(text: $searchText)
+                SearchBarView(text: $searchText)
             }
             
             //Categories List

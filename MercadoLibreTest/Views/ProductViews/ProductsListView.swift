@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ProductsListView: View {
     
-    @State private var searchText : String = ""
-    
-    //TODO: Refactor this
+    //MARK: - States
     @StateObject var productItemViewModel: ProductItemViewModel
-    
+    @State private var searchText : String = ""
+
+    //MARK: - Content View
     var body: some View {
         VStack {
             //Search Bar
@@ -23,7 +23,7 @@ struct ProductsListView: View {
                     .edgesIgnoringSafeArea(.all)
                     .frame(height: 90)
                 
-                SearchBar(text: $searchText)
+                SearchBarView(text: $searchText)
             }
             
             //Categories List
@@ -33,7 +33,7 @@ struct ProductsListView: View {
                         .onTapGesture {
                             productItemViewModel.navigateToProduct()
                         }
-                        .frame(height: 180)
+                        .frame(height: 200)
                 }
             }
             .padding(.bottom, 1)
