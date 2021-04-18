@@ -9,9 +9,10 @@ import SwiftUI
 
 struct SearchBar: UIViewRepresentable {
 
+    //MARK: - Binding
     @Binding var text: String
 
-    //Required by UIViewRepresentable
+    //MARK: - Required by UIViewRepresentable
     func makeUIView(context: UIViewRepresentableContext<SearchBar>) -> UISearchBar {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = context.coordinator
@@ -23,8 +24,6 @@ struct SearchBar: UIViewRepresentable {
         return searchBar
     }
 
-    //Required by UIViewRepresentable
-
     func updateUIView(_ uiView: UISearchBar, context: UIViewRepresentableContext<SearchBar>) {
         uiView.text = text
     }
@@ -34,6 +33,7 @@ struct SearchBar: UIViewRepresentable {
         return Coordinator(text: $text)
     }
     
+    //MARK: - Coordinator
     //Coordinator class Allows the view to implement the UIKit delegates
     class Coordinator: NSObject, UISearchBarDelegate {
 

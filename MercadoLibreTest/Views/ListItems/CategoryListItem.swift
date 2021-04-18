@@ -9,37 +9,44 @@ import SwiftUI
 
 struct CategoryListItem: View {
     
-    @State var text: String
+    //MARK: - States
+    @State var text: String = ""
+    @State var listItemHeight: CGFloat = 0
     
+    //MARK: - Content View
     var body: some View {
-
-        ZStack {
-            Rectangle()
-                .foregroundColor(.gray)
-                .cornerRadius(10)
-                .padding(10)
-                .frame(width: 150, height: 150)
-                
-            VStack {
-                Text(text)
-                    .font(.headline)
-                Image("NoImage")
+        GeometryReader { geometry in
+            ZStack {
+                //Rounded Category Image
+                Image("Test")
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 80, height: 80, alignment: .center)
-                    .cornerRadius(10)
+                    .frame(width: geometry.size.width - 20, height: listItemHeight)
+                    .aspectRatio(contentMode: .fill)
+                    .background(CustomColors.lightGray)
+                    .cornerRadius(20)
+                    .shadow(radius: 10)
+       
+                //Category Title
+                VStack {
+                    HStack {
+                        Text(text)
+                            .font(.title).bold()
+                        Spacer()
+                    }
+                    .padding(20)
+                    Spacer()
+                }
+                .frame(height: listItemHeight)
             }
-            .padding(.bottom, 10)
-            .padding(.top, 10)
         }
     }
 }
 
 struct CategoryListItem_Previews: PreviewProvider {
     
-    @State static var text: String = "Prueba"
+    @State static var text: String = "Texto de Prueba Número Uno"
 
     static var previews: some View {
-        CategoryListItem(text: text)
+        CategoryListItem(text: text, listItemHeight: 375)
     }
 }

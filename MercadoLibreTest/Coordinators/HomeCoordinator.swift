@@ -15,17 +15,28 @@ private struct Constants {
 }
 
 class HomeCoordinator: Coordinator {
+    
+    //MARK: - Coordinator Delegate implementation
     var navigationController: UINavigationController
 
+    //MARK: - Constructor
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.navigationController.navigationBar.prefersLargeTitles = true
 
+        setUpNavigationController()
+        setUpRootViewController()
+    }
+    
+    //MARK: - SetUp
+    func setUpNavigationController() {
+        self.navigationController.navigationBar.prefersLargeTitles = true
+    }
+    
+    func setUpRootViewController() {
         let homeViewModel = HomeViewModel(coordinator: self)
         let vc = UIHostingController(rootView: HomeView(homeViewModel: homeViewModel))
         vc.title = Constants.homeTitle
         vc.tabBarItem = setUpTabBar()
-        
         self.navigationController.viewControllers = [vc]
     }
     
@@ -36,7 +47,8 @@ class HomeCoordinator: Coordinator {
         return customTabBarItem
     }
     
-    func navigateToDetail() {
+    //MARK: - Navigation
+    func navigateToCategory() {
         let vc = UIHostingController(rootView: ProductsListView())
         self.navigationController.pushViewController(vc, animated: true)
     }

@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ProductsListView: View {
+    
+    
+    
     var body: some View {
-        
         VStack {
             Rectangle()
                 .foregroundColor(.yellow)

@@ -9,44 +9,47 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @ObservedObject var homeViewModel: HomeViewModel
+    //MARK: - States
+    @StateObject var homeViewModel: HomeViewModel
     @State private var searchText : String = ""
     
-    //TODO: Remove this when linking the data
-    let categories = ["Comida", "Autos", "Tec", "Ropa", "Cosmeticos", "Conectividad", "TVs", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test"]
-    
+    //MARK: - Content View
     var body: some View {
         VStack {
+            //Search Bar
             ZStack(alignment: .top) {
                 Rectangle()
-                    .fill(LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.white]), startPoint: .center, endPoint: .bottom))
+                    .fill(LinearGradient(gradient: Gradient(colors: [CustomColors.yellow, .white]), startPoint: .center, endPoint: .bottom))
                     .edgesIgnoringSafeArea(.all)
-                    .frame(height: 100)
+                    .frame(height: 90)
                 
                 SearchBar(text: $searchText)
             }
-                        
-            VStack {
-                List {
-                    ForEach(self.categories, id: \.self) { category in
-                        CategoryListItem(text: category)
-                            .onTapGesture {
-                                homeViewModel.navigateTo()
-                            }
-                    }
+            
+            //Categories List
+            List {
+                ForEach(homeViewModel.categories, id: \.self) { category in
+                    CategoryListItem(text: category, listItemHeight: homeViewModel.getCategoryListItemHeight())
+                        .onTapGesture {
+                            homeViewModel.navigateToCategory()
+                        }
+                        .id(UUID())
+                        .frame(height: homeViewModel.getCategoryListItemHeight())
+                        .padding(.bottom, 5)
                 }
             }
-            
-            Spacer()
+            .padding(.bottom, 1)
         }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
+    
+    static let navController = UINavigationController()
+    static let homeCoordinator = HomeCoordinator(navigationController: navController)
+    static let homeVM = HomeViewModel(coordinator: homeCoordinator)
+    
     static var previews: some View {
-        HomeView(homeViewModel:
-                    HomeViewModel(coordinator:
-                                    HomeCoordinator(navigationController:
-                                                        UINavigationController())))
+        HomeView(homeViewModel: homeVM)
     }
 }
