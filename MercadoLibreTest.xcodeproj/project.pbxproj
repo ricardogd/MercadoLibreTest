@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53C7AE74262C0407005F3A9B /* ProductItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C7AE73262C0407005F3A9B /* ProductItemViewModel.swift */; };
+		53C7AE79262C09E0005F3A9B /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C7AE78262C09E0005F3A9B /* URLImage.swift */; };
+		53C7AE7E262C0A0E005F3A9B /* URLImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C7AE7D262C0A0E005F3A9B /* URLImageViewModel.swift */; };
+		53C7AE83262C14DB005F3A9B /* ProductsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C7AE82262C14DB005F3A9B /* ProductsListViewModel.swift */; };
 		53EB0D5026293F99005A2075 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EB0D4F26293F99005A2075 /* AppDelegate.swift */; };
 		53EB0D5226293F99005A2075 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EB0D5126293F99005A2075 /* SceneDelegate.swift */; };
 		53EB0D5626293F9F005A2075 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53EB0D5526293F9F005A2075 /* Assets.xcassets */; };
@@ -49,6 +53,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		53C7AE73262C0407005F3A9B /* ProductItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductItemViewModel.swift; sourceTree = "<group>"; };
+		53C7AE78262C09E0005F3A9B /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
+		53C7AE7D262C0A0E005F3A9B /* URLImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageViewModel.swift; sourceTree = "<group>"; };
+		53C7AE82262C14DB005F3A9B /* ProductsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsListViewModel.swift; sourceTree = "<group>"; };
 		53EB0D4C26293F99005A2075 /* MercadoLibreTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MercadoLibreTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53EB0D4F26293F99005A2075 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53EB0D5126293F99005A2075 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,11 +141,10 @@
 				53EB0D842629415D005A2075 /* Coordinators */,
 				53EB0D8326294155005A2075 /* Views */,
 				53EB0D822629412F005A2075 /* Controllers */,
+				53EB0E0C262BF603005A2075 /* Storyboards */,
 				53EB0D4F26293F99005A2075 /* AppDelegate.swift */,
 				53EB0D5126293F99005A2075 /* SceneDelegate.swift */,
 				53EB0D5526293F9F005A2075 /* Assets.xcassets */,
-				53EB0D5A26293F9F005A2075 /* LaunchScreen.storyboard */,
-				53EB0DB72629CDB8005A2075 /* Main.storyboard */,
 				53EB0D5D26293F9F005A2075 /* Info.plist */,
 				53EB0D5726293F9F005A2075 /* Preview Content */,
 			);
@@ -181,12 +188,11 @@
 		53EB0D8326294155005A2075 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				53EB0E08262BF5C9005A2075 /* About */,
+				53EB0E07262BF5BE005A2075 /* Home */,
+				53EB0E06262BF589005A2075 /* ProductViews */,
 				53EB0DE5262A9673005A2075 /* ListItems */,
 				53EB0DDC262A77F3005A2075 /* Common */,
-				53EB0D88262942DC005A2075 /* AboutView.swift */,
-				53EB0D962629440F005A2075 /* HomeView.swift */,
-				53EB0DCD2629DB39005A2075 /* ProductDetailView.swift */,
-				53EB0DF5262ABCB1005A2075 /* ProductsListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,6 +226,9 @@
 			isa = PBXGroup;
 			children = (
 				53EB0DBD2629DA97005A2075 /* HomeViewModel.swift */,
+				53C7AE73262C0407005F3A9B /* ProductItemViewModel.swift */,
+				53C7AE7D262C0A0E005F3A9B /* URLImageViewModel.swift */,
+				53C7AE82262C14DB005F3A9B /* ProductsListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -229,6 +238,7 @@
 			children = (
 				53EB0DDD262A7889005A2075 /* SearchBar.swift */,
 				53EB0DFE262BC4CA005A2075 /* CustomColors.swift */,
+				53C7AE78262C09E0005F3A9B /* URLImage.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -240,6 +250,40 @@
 				53EB0DEE262A96EF005A2075 /* ProductListItem.swift */,
 			);
 			path = ListItems;
+			sourceTree = "<group>";
+		};
+		53EB0E06262BF589005A2075 /* ProductViews */ = {
+			isa = PBXGroup;
+			children = (
+				53EB0DCD2629DB39005A2075 /* ProductDetailView.swift */,
+				53EB0DF5262ABCB1005A2075 /* ProductsListView.swift */,
+			);
+			path = ProductViews;
+			sourceTree = "<group>";
+		};
+		53EB0E07262BF5BE005A2075 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				53EB0D962629440F005A2075 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		53EB0E08262BF5C9005A2075 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				53EB0D88262942DC005A2075 /* AboutView.swift */,
+			);
+			path = About;
+			sourceTree = "<group>";
+		};
+		53EB0E0C262BF603005A2075 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				53EB0D5A26293F9F005A2075 /* LaunchScreen.storyboard */,
+				53EB0DB72629CDB8005A2075 /* Main.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53EB0D8A26294311005A2075 /* Coordinator.swift in Sources */,
+				53C7AE79262C09E0005F3A9B /* URLImage.swift in Sources */,
 				53EB0D9F2629489E005A2075 /* MainCoordinator.swift in Sources */,
 				53EB0DCE2629DB39005A2075 /* ProductDetailView.swift in Sources */,
 				53EB0DA726294904005A2075 /* MainTabBarController.swift in Sources */,
@@ -385,7 +430,10 @@
 				53EB0D5026293F99005A2075 /* AppDelegate.swift in Sources */,
 				53EB0DFF262BC4CB005A2075 /* CustomColors.swift in Sources */,
 				53EB0DAB26294E31005A2075 /* AboutView.swift in Sources */,
+				53C7AE74262C0407005F3A9B /* ProductItemViewModel.swift in Sources */,
+				53C7AE83262C14DB005F3A9B /* ProductsListViewModel.swift in Sources */,
 				53EB0DEF262A96EF005A2075 /* ProductListItem.swift in Sources */,
+				53C7AE7E262C0A0E005F3A9B /* URLImageViewModel.swift in Sources */,
 				53EB0D9226294357005A2075 /* HomeCoordinator.swift in Sources */,
 				53EB0D9A26294521005A2075 /* HomeView.swift in Sources */,
 				53EB0D5226293F99005A2075 /* SceneDelegate.swift in Sources */,

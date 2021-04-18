@@ -8,9 +8,7 @@
 import SwiftUI
 
 public enum CustomColors {
-    private class __BundleClass {}
-    private static let bundle = Bundle(for: __BundleClass.self)
-
-    static let lightGray     = Color("Light-Gray", bundle: bundle)
-    static let yellow     = Color("Yellow", bundle: bundle)
+    static let lightGray = Color("Light-Gray")
+    static let yellow = Color("Yellow")
+    static let green = Color("Green")
 }

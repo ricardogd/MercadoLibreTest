@@ -18,13 +18,13 @@ struct CategoryListItem: View {
         GeometryReader { geometry in
             ZStack {
                 //Rounded Category Image
-                Image("Test")
+                Image("CategoryPlaceHolder")
                     .resizable()
                     .frame(width: geometry.size.width - 20, height: listItemHeight)
                     .aspectRatio(contentMode: .fill)
                     .background(CustomColors.lightGray)
                     .cornerRadius(20)
-                    .shadow(radius: 10)
+                    .shadow(radius: 5)
        
                 //Category Title
                 VStack {
