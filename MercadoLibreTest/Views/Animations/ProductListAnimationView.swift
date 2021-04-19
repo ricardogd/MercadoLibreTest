@@ -20,14 +20,14 @@ struct ProductListAnimationView: View {
                     .shadow(radius: 5)
                 
                 HStack() {
-                    //Loading image animation - image place holder - product image
+                    //Iimage animation
                     VStack(alignment: .leading) {
                         ShimmerAnimationView()
                             .frame(width: 100, height: 100, alignment: .center)
                     }
                     .padding(.leading, 10)
                         
-                    //Product labels
+                    //Labels
                     VStack(alignment: .leading) {
                         ShimmerAnimationView()
                             .frame(width: 200, height: 20, alignment: .center)
