@@ -12,7 +12,7 @@ import Combine
 class HomeViewModel: ObservableObject {
     
     //MARK: - Publisehd Variables
-    @Published var categories = ["Comida", "Autos", "Tec", "Ropa", "Cosmeticos", "Conectividad", "TVs", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test"]
+    @Published var categories: [CategoryDetail] = []
     @Published var isLoading : Bool = false
     @Published var showProductList : Bool = false
     @State var shouldSearchForProduct : Bool = false {
@@ -31,9 +31,62 @@ class HomeViewModel: ObservableObject {
         
         //TODO: Initialize this with model from service
         productItemViewModel = ProductItemViewModel()
+        
+        self.isLoading = true
+        getCategories()
     }
     
     //MARK: - Service Calls
+    func getCategories() {
+        let serviceProvider = ServiceProvider.categoriesClient
+        serviceProvider.getCategories(forSite: "MLA") { [weak self] (result) in
+            switch result {
+            case .success(let categories):
+                self?.getCategoriesWithImages(categories: categories)
+                break
+                
+            case .failure(_):
+                DispatchQueue.main.async {
+                    self?.isLoading = false
+                }
+                break
+            }
+        }
+    }
+    
+    func getCategoriesWithImages(categories: [Category]) {
+        let dispatchGroup = DispatchGroup()
+        var categoriesDetail: [CategoryDetail] = []
+        let serviceProvider = ServiceProvider.categoriesClient
+        
+        for category in categories {
+            
+            dispatchGroup.enter()
+            
+            serviceProvider.getCategoriesWithImages(forCategory: category.id) { (result) in
+                switch result {
+                case .success(let categoryDetail):
+                    categoriesDetail.append(categoryDetail)
+                    dispatchGroup.leave()
+                    break
+                    
+                case .failure(_):
+                    let categoryDetail = CategoryDetail(category: category)
+                    categoriesDetail.append(categoryDetail)
+                    dispatchGroup.leave()
+                    break
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            DispatchQueue.main.async {
+                self.categories = categoriesDetail
+                self.isLoading = false
+            }
+        }
+    }
+    
     func searchForProduct() {
         DispatchQueue.main.async {
             self.isLoading = true
@@ -47,17 +100,5 @@ class HomeViewModel: ObservableObject {
     
     func navigateToProduct() {
         coordinator?.navigateToProduct()
-    }
-    
-    //MARK: UI Business Rules
-    func getCategoryListItemHeight() -> CGFloat {
-        guard let viewWidth = self.coordinator?.navigationController.view.frame.width else {
-            return 0
-        }
-        
-        // 0.9594 -> Aspect ratio W/H defined to resize the CategoryListItem to looks like a portrait rectangle image
-        // 20 -> Widht padding used in the CategoryListItem
-        let height = (viewWidth - 20) / 0.9594
-        return height
     }
 }

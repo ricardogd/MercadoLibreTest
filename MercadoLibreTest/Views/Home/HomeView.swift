@@ -52,13 +52,14 @@ struct HomeView: View {
             else {
                 //Categories List
                 List {
-                    ForEach(homeViewModel.categories, id: \.self) { category in
-                        CategoryListItem(text: category, listItemHeight: homeViewModel.getCategoryListItemHeight())
+                    ForEach(homeViewModel.categories, id: \.id) { category in
+                        let categoryListItemVM = CategoryListItemViewModel(categoryDetail: category)
+                        CategoryListItem(categoryListItemVM: categoryListItemVM)
                             .onTapGesture {
                                 homeViewModel.navigateToCategory()
                             }
                             .id(UUID())
-                            .frame(height: homeViewModel.getCategoryListItemHeight())
+                            .frame(height: categoryListItemVM.listItemHeight)
                             .padding(.bottom, 5)
                     }
                 }

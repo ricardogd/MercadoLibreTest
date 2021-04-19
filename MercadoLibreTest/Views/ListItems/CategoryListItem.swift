@@ -10,17 +10,16 @@ import SwiftUI
 struct CategoryListItem: View {
     
     //MARK: - States
-    @State var text: String = ""
-    @State var listItemHeight: CGFloat = 0
+    @StateObject var categoryListItemVM: CategoryListItemViewModel
     
     //MARK: - Content View
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 //Rounded Category Image
-                Image("CategoryPlaceHolder")
+                Image(uiImage: categoryListItemVM.image)
                     .resizable()
-                    .frame(width: geometry.size.width - 20, height: listItemHeight)
+                    .frame(width: geometry.size.width - 20, height: categoryListItemVM.listItemHeight)
                     .aspectRatio(contentMode: .fill)
                     .background(CustomColors.lightGray)
                     .cornerRadius(20)
@@ -29,14 +28,14 @@ struct CategoryListItem: View {
                 //Category Title
                 VStack {
                     HStack {
-                        Text(text)
+                        Text(categoryListItemVM.name)
                             .font(.title).bold()
                         Spacer()
                     }
                     .padding(20)
                     Spacer()
                 }
-                .frame(height: listItemHeight)
+                .frame(height: categoryListItemVM.listItemHeight)
             }
         }
     }
@@ -44,9 +43,10 @@ struct CategoryListItem: View {
 
 struct CategoryListItem_Previews: PreviewProvider {
     
-    @State static var text: String = "Texto de Prueba Número Uno"
+    static var categoryDetail = CategoryDetail()
+    static var categoryDetailVM = CategoryListItemViewModel(categoryDetail: categoryDetail)
 
     static var previews: some View {
-        CategoryListItem(text: text, listItemHeight: 375)
+        CategoryListItem(categoryListItemVM: categoryDetailVM)
     }
 }
