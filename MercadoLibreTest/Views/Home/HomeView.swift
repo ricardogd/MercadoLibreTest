@@ -30,7 +30,7 @@ struct HomeView: View {
                 //Loading Shimmer Animation
                 List {
                     ForEach(0...1, id: \.self) { raw in
-                        Text("Loading")
+                        ProductListAnimationView()
                             .frame(height: 200)
                     }
                 }

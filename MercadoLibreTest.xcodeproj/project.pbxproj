@@ -15,6 +15,8 @@
 		53C7AEA4262CA3B0005F3A9B /* ProductShippingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C7AEA3262CA3B0005F3A9B /* ProductShippingView.swift */; };
 		53C7AEA9262CA58C005F3A9B /* ProductDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C7AEA8262CA58C005F3A9B /* ProductDescriptionView.swift */; };
 		53C7AEB5262CEE1A005F3A9B /* ProductItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C7AEB4262CEE1A005F3A9B /* ProductItemViewModel.swift */; };
+		53C7AEBB262D15A2005F3A9B /* ProductListAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C7AEBA262D15A2005F3A9B /* ProductListAnimationView.swift */; };
+		53C7AEC3262D27F7005F3A9B /* ShimmerAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C7AEC2262D27F7005F3A9B /* ShimmerAnimationView.swift */; };
 		53EB0D5026293F99005A2075 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EB0D4F26293F99005A2075 /* AppDelegate.swift */; };
 		53EB0D5226293F99005A2075 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EB0D5126293F99005A2075 /* SceneDelegate.swift */; };
 		53EB0D5626293F9F005A2075 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53EB0D5526293F9F005A2075 /* Assets.xcassets */; };
@@ -65,6 +67,8 @@
 		53C7AEA3262CA3B0005F3A9B /* ProductShippingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductShippingView.swift; sourceTree = "<group>"; };
 		53C7AEA8262CA58C005F3A9B /* ProductDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDescriptionView.swift; sourceTree = "<group>"; };
 		53C7AEB4262CEE1A005F3A9B /* ProductItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductItemViewModel.swift; sourceTree = "<group>"; };
+		53C7AEBA262D15A2005F3A9B /* ProductListAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListAnimationView.swift; sourceTree = "<group>"; };
+		53C7AEC2262D27F7005F3A9B /* ShimmerAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerAnimationView.swift; sourceTree = "<group>"; };
 		53EB0D4C26293F99005A2075 /* MercadoLibreTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MercadoLibreTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53EB0D4F26293F99005A2075 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53EB0D5126293F99005A2075 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +124,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		53C7AEB9262D1566005F3A9B /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				53C7AEBA262D15A2005F3A9B /* ProductListAnimationView.swift */,
+				53C7AEC2262D27F7005F3A9B /* ShimmerAnimationView.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		53EB0D4326293F99005A2075 = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +209,7 @@
 		53EB0D8326294155005A2075 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				53C7AEB9262D1566005F3A9B /* Animations */,
 				53EB0E08262BF5C9005A2075 /* About */,
 				53EB0E07262BF5BE005A2075 /* Home */,
 				53EB0E06262BF589005A2075 /* ProductViews */,
@@ -441,12 +455,14 @@
 				53C7AE96262C98F1005F3A9B /* ProductInstallmentsView.swift in Sources */,
 				53EB0DE7262A96C8005A2075 /* CategoryListItem.swift in Sources */,
 				53EB0DB326295ACA005A2075 /* AboutCoordinator.swift in Sources */,
+				53C7AEBB262D15A2005F3A9B /* ProductListAnimationView.swift in Sources */,
 				53EB0D5026293F99005A2075 /* AppDelegate.swift in Sources */,
 				53EB0DFF262BC4CB005A2075 /* CustomColors.swift in Sources */,
 				53EB0DAB26294E31005A2075 /* AboutView.swift in Sources */,
 				53C7AEA4262CA3B0005F3A9B /* ProductShippingView.swift in Sources */,
 				53C7AE8B262C938B005F3A9B /* ProductPriceTextView.swift in Sources */,
 				53C7AEB5262CEE1A005F3A9B /* ProductItemViewModel.swift in Sources */,
+				53C7AEC3262D27F7005F3A9B /* ShimmerAnimationView.swift in Sources */,
 				53C7AE74262C0407005F3A9B /* ProductListViewModel.swift in Sources */,
 				53EB0DEF262A96EF005A2075 /* ProductListItem.swift in Sources */,
 				53C7AE7E262C0A0E005F3A9B /* URLImageViewModel.swift in Sources */,
