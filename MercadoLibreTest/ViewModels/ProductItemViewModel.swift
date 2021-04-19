@@ -19,24 +19,14 @@ class ProductItemViewModel: ObservableObject {
     @Published var productInstallments: String = ""
     @Published var hasInterestRate: Bool = true
     @Published var productShipping: String = ""
-
-    //MARK: - Variables
-    weak var coordinator: HomeCoordinator?
     
     //MARK: - Constructor
-    init(coordinator: HomeCoordinator) {
-        self.coordinator = coordinator
-        
+    init() {
         //TODO: Move these calls when service had responded
         setProductPrice(price: 10000, currency: "COP")
         setProductInstallments()
         setProductShipping(isFreeShipping: true)
         setProductTitle(title: "Nombre del producto y descripción corta sobre él mismo")
-    }
-    
-    //MARK: - Navigation
-    func navigateToProduct() {
-        coordinator?.navigateToProduct()
     }
     
     //MARK: - UI

@@ -49,8 +49,8 @@ class HomeCoordinator: Coordinator {
     
     //MARK: - Navigation
     func navigateToCategory() {
-        let productItemViewModel = ProductItemViewModel(coordinator: self)
-        let vc = UIHostingController(rootView: ProductsListView(productItemViewModel: productItemViewModel))
+        let productListViewModel = ProductListViewModel(coordinator: self)
+        let vc = UIHostingController(rootView: ProductsListView(productListViewModel: productListViewModel))
         self.navigationController.pushViewController(vc, animated: true)
     }
     

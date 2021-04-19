@@ -13,18 +13,40 @@ class HomeViewModel: ObservableObject {
     
     //MARK: - Publisehd Variables
     @Published var categories = ["Comida", "Autos", "Tec", "Ropa", "Cosmeticos", "Conectividad", "TVs", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test"]
+    @Published var isLoading : Bool = false
+    @Published var showProductList : Bool = false
+    @State var shouldSearchForProduct : Bool = false {
+        didSet {
+            searchForProduct()
+        }
+    }
     
     //MARK: - Variables
     weak var coordinator: HomeCoordinator?
+    var productItemViewModel: ProductItemViewModel
 
     //MARK: - Constructor
     init(coordinator: HomeCoordinator) {
         self.coordinator = coordinator
+        
+        //TODO: Initialize this with model from service
+        productItemViewModel = ProductItemViewModel()
+    }
+    
+    //MARK: - Service Calls
+    func searchForProduct() {
+        DispatchQueue.main.async {
+            self.isLoading = true
+        }
     }
     
     //MARK: - Navigation
     func navigateToCategory() {
         coordinator?.navigateToCategory()
+    }
+    
+    func navigateToProduct() {
+        coordinator?.navigateToProduct()
     }
     
     //MARK: UI Business Rules

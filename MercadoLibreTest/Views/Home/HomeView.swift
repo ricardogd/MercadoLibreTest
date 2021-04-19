@@ -12,7 +12,7 @@ struct HomeView: View {
     //MARK: - States
     @StateObject var homeViewModel: HomeViewModel
     @State private var searchText : String = ""
-    
+
     //MARK: - Content View
     var body: some View {
         VStack {
@@ -23,22 +23,47 @@ struct HomeView: View {
                     .edgesIgnoringSafeArea(.all)
                     .frame(height: 90)
                 
-                SearchBarView(text: $searchText)
+                SearchBarView(text: $searchText, shouldSearchForPruduct: $homeViewModel.shouldSearchForProduct)
             }
             
-            //Categories List
-            List {
-                ForEach(homeViewModel.categories, id: \.self) { category in
-                    CategoryListItem(text: category, listItemHeight: homeViewModel.getCategoryListItemHeight())
-                        .onTapGesture {
-                            homeViewModel.navigateToCategory()
-                        }
-                        .id(UUID())
-                        .frame(height: homeViewModel.getCategoryListItemHeight())
-                        .padding(.bottom, 5)
+            if homeViewModel.isLoading {
+                //Loading Shimmer Animation
+                List {
+                    ForEach(0...1, id: \.self) { raw in
+                        Text("Loading")
+                            .frame(height: 200)
+                    }
                 }
+                .padding(.bottom, 1)
             }
-            .padding(.bottom, 1)
+            else if homeViewModel.showProductList {
+                //Products List
+                List {
+                    ForEach(0...7, id: \.self) { raw in
+                        ProductListItem(productItemViewModel: homeViewModel.productItemViewModel)
+                            .onTapGesture {
+                                homeViewModel.navigateToProduct()
+                            }
+                            .frame(height: 200)
+                    }
+                }
+                .padding(.bottom, 1)
+            }
+            else {
+                //Categories List
+                List {
+                    ForEach(homeViewModel.categories, id: \.self) { category in
+                        CategoryListItem(text: category, listItemHeight: homeViewModel.getCategoryListItemHeight())
+                            .onTapGesture {
+                                homeViewModel.navigateToCategory()
+                            }
+                            .id(UUID())
+                            .frame(height: homeViewModel.getCategoryListItemHeight())
+                            .padding(.bottom, 5)
+                    }
+                }
+                .padding(.bottom, 1)
+            }
         }
     }
 }

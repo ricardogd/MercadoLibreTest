@@ -11,6 +11,7 @@ struct SearchBarView: UIViewRepresentable {
 
     //MARK: - Binding
     @Binding var text: String
+    @Binding var shouldSearchForPruduct: Bool
 
     //MARK: - Required by UIViewRepresentable
     func makeUIView(context: UIViewRepresentableContext<SearchBarView>) -> UISearchBar {
@@ -30,7 +31,7 @@ struct SearchBarView: UIViewRepresentable {
     
     //Required to create the Coordinator in the current context
     func makeCoordinator() -> SearchBarView.Coordinator {
-        return Coordinator(text: $text)
+        return Coordinator(text: $text, shouldSearchForPruduct: $shouldSearchForPruduct)
     }
     
     //MARK: - Coordinator
@@ -38,20 +39,29 @@ struct SearchBarView: UIViewRepresentable {
     class Coordinator: NSObject, UISearchBarDelegate {
 
         @Binding var text: String
+        @Binding var shouldSearchForPruduct: Bool
 
-        init(text: Binding<String>) {
+        init(text: Binding<String>, shouldSearchForPruduct: Binding<Bool>) {
             _text = text
+            _shouldSearchForPruduct = shouldSearchForPruduct
         }
 
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             text = searchText
+        }
+        
+        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            searchBar.resignFirstResponder()
+            shouldSearchForPruduct = true
         }
     }
 }
 
 struct SearchBarView_Previews: PreviewProvider {
     @State static var text = ""
+    @State static var shouldSearchForPruduct = false
+
     static var previews: some View {
-        SearchBarView(text: $text)
+        SearchBarView(text: $text, shouldSearchForPruduct: $shouldSearchForPruduct)
     }
 }

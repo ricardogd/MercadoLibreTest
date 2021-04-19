@@ -53,9 +53,7 @@ struct ProductListItem: View {
 
 struct ProductListItem_Previews: PreviewProvider {
     
-    static let navController = UINavigationController()
-    static let homeCoordinator = HomeCoordinator(navigationController: navController)
-    static let productItemViewModel = ProductItemViewModel(coordinator: homeCoordinator)
+    static let productItemViewModel = ProductItemViewModel()
     
     static var previews: some View {
         ProductListItem(productItemViewModel: productItemViewModel)
