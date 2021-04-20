@@ -17,7 +17,7 @@ class ProductsService: ProductsServiceClient {
         let partialPath = path.replacingOccurrences(of: "{SITE_ID}", with: siteId)
         let fullPath = partialPath.replacingOccurrences(of: "{CATEGORY_ID}", with: categoryId)
         guard let url = URL(string: fullPath) else {
-            return
+            return handler(.failure(.unableToParseURL))
         }
         
         var request = URLRequest(url: url)

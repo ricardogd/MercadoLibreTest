@@ -18,6 +18,7 @@ struct ProductPriceTextView: View {
                 .font(.title)
                 .padding(.top, 5)
             Text(currencyText)
+                .font(.system(size: 14))
                 .padding(.top, 5)
                 .foregroundColor(CustomColors.green)
         }

@@ -39,6 +39,7 @@ struct ProductListItem: View {
                         ProductPriceTextView(priceText: productItemViewModel.productPrice, currencyText: productItemViewModel.productCurrency)
                         ProductInstallmentsView(payments: productItemViewModel.productInstallments, interestRate: productItemViewModel.hasInterestRate)
                         Text(productItemViewModel.productShipping)
+                            .font(.system(size: 14))
                             .foregroundColor(CustomColors.green)
                             .padding(.top, 5)
                     }

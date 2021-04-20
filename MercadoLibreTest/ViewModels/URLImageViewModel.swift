@@ -11,7 +11,7 @@ import SwiftUI
 class URLImageViewModel: ObservableObject {
     
     @Published var isLoading = false
-    @Published var image: UIImage = UIImage(named: "photo.on.rectangle") ?? UIImage()
+    @Published var image: UIImage = UIImage(systemName: "photo.on.rectangle") ?? UIImage()
     
     var urlString: String
     
@@ -33,7 +33,7 @@ class URLImageViewModel: ObservableObject {
                 break
             case .failure(_):
                 DispatchQueue.main.async {
-                    self?.image = UIImage(named: "photo.on.rectangle") ?? UIImage()
+                    self?.image = UIImage(systemName: "photo.on.rectangle") ?? UIImage()
                     self?.isLoading = false
                 }
                 break

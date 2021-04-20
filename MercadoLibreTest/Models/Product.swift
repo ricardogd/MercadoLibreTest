@@ -27,7 +27,7 @@ struct Product: Codable, Identifiable {
         case currency = "currency_id"
         case availability = "available_quantity"
         case soldQuantity = "sold_quantity"
-        case image = "http://mla-s1-p.mlstatic.com/943469-MLA31002769183_062019-I.jpg"
+        case image = "thumbnail"
         case installments
         case shipping
     }

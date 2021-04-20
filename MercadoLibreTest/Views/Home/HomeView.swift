@@ -28,40 +28,48 @@ struct HomeView: View {
             
             if homeViewModel.isLoading {
                 //Loading Shimmer Animation
-                List {
-                    ForEach(0...1, id: \.self) { raw in
-                        ProductListAnimationView()
-                            .frame(height: 200)
+                ScrollView {
+                    VStack {
+                        ForEach(0...1, id: \.self) { raw in
+                            ProductListAnimationView()
+                                .frame(height: 200)
+                        }
                     }
                 }
                 .padding(.bottom, 1)
             }
             else if homeViewModel.showProductList {
                 //Products List
-                List {
-                    ForEach(homeViewModel.products, id: \.id) { product in
-                        let productItemViewModel = ProductItemViewModel(product: product)
-                        ProductListItem(productItemViewModel: productItemViewModel)
-                            .onTapGesture {
-                                homeViewModel.navigateToProduct()
-                            }
-                            .frame(height: 200)
+                ScrollView {
+                    VStack {
+                        ForEach(homeViewModel.products, id: \.id) { product in
+                            let productItemViewModel = ProductItemViewModel(product: product)
+                            ProductListItem(productItemViewModel: productItemViewModel)
+                                .onTapGesture {
+                                    homeViewModel.navigateToProduct()
+                                }
+                                .frame(height: 200)
+                        }
                     }
                 }
                 .padding(.bottom, 1)
             }
             else {
                 //Categories List
-                List {
-                    ForEach(homeViewModel.categories, id: \.id) { category in
-                        let categoryListItemVM = CategoryListItemViewModel(categoryDetail: category)
-                        CategoryListItem(categoryListItemVM: categoryListItemVM)
-                            .onTapGesture {
-                                homeViewModel.navigateToCategory(withCategoryId: category.id)
-                            }
-                            .id(UUID())
-                            .frame(height: categoryListItemVM.listItemHeight)
-                            .padding(.bottom, 5)
+                ScrollView {
+                    VStack {
+                        ForEach(homeViewModel.categories, id: \.id) { category in
+                            let categoryListItemVM = CategoryListItemViewModel(categoryDetail: category)
+                            CategoryListItem(categoryListItemVM: categoryListItemVM)
+                                .onTapGesture {
+                                    homeViewModel.navigateToCategory(withCategoryId: category.id)
+                                }
+                                .id(UUID())
+                                .frame(height: categoryListItemVM.listItemHeight)
+                                .padding(.leading, 15)
+                                .padding(.trailing, 15)
+                                .padding(.bottom, 25)
+                        }
                     }
                 }
                 .padding(.bottom, 1)

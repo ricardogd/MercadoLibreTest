@@ -28,24 +28,30 @@ struct ProductsListView: View {
             
             if productListViewModel.isLoading == true {
                 //Loading Shimmer Animation
-                List {
-                    ForEach(0...1, id: \.self) { raw in
-                        ProductListAnimationView()
-                            .frame(height: 200)
+                ScrollView {
+                    VStack {
+                        ForEach(0...1, id: \.self) { raw in
+                            ProductListAnimationView()
+                                .frame(height: 180)
+                                .padding()
+                        }
                     }
                 }
                 .padding(.bottom, 1)
             }
             else {
                 //Products List
-                List {
-                    ForEach(productListViewModel.products, id: \.id) { product in
-                        let productItemViewModel = ProductItemViewModel(product: product)
-                        ProductListItem(productItemViewModel: productItemViewModel)
-                            .onTapGesture {
-                                productListViewModel.navigateToProduct()
-                            }
-                            .frame(height: 200)
+                ScrollView {
+                    VStack {
+                        ForEach(productListViewModel.products, id: \.id) { product in
+                            let productItemViewModel = ProductItemViewModel(product: product)
+                            ProductListItem(productItemViewModel: productItemViewModel)
+                                .onTapGesture {
+                                    productListViewModel.navigateToProduct()
+                                }
+                                .frame(height: 180)
+                                .padding()
+                        }
                     }
                 }
                 .padding(.bottom, 1)

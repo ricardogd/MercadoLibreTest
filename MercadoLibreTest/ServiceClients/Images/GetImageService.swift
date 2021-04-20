@@ -14,7 +14,7 @@ class GetImageService: GetImageServiceClient {
     func getImage(fromURL urlString: String, handler: @escaping (Result<Data, ServiceErrors>) -> Void) {
         
         guard let url = URL(string: urlString) else {
-            return
+            return handler(.failure(.unableToParseURL))
         }
         
         let task = session.dataTask(with: url) { (data, response, error) in

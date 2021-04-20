@@ -15,9 +15,12 @@ struct ProductInstallmentsView: View {
     var body: some View {
         HStack {
             Text("en")
+                .font(.system(size: 14))
             Text(payments)
+                .font(.system(size: 14))
                 .foregroundColor(CustomColors.green)
             Text(interestRate ? "": "sin interés")
+                .font(.system(size: 14))
                 .foregroundColor(CustomColors.green)
         }
     }

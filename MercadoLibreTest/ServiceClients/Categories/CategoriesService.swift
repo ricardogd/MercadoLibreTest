@@ -16,7 +16,7 @@ class CategoriesService: CategoriesServiceClient {
         let path = URLBuilder().getCategoriesPath()
         let fullPath = path.replacingOccurrences(of: "{SITE_ID}", with: id)
         guard let url = URL(string: fullPath) else {
-            return
+            return handler(.failure(.unableToParseURL))
         }
         
         var request = URLRequest(url: url)
