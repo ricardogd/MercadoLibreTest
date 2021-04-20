@@ -14,14 +14,15 @@ class CategoriesService: CategoriesServiceClient {
     func getCategories(forSite id: String, handler: @escaping (Result<[Category], ServiceErrors>) -> Void) {
         
         let path = URLBuilder().getCategoriesPath()
-        guard let url = URL(string: path) else {
+        let fullPath = path.replacingOccurrences(of: "{SITE_ID}", with: id)
+        guard let url = URL(string: fullPath) else {
             return
         }
         
         var request = URLRequest(url: url)
-        request.httpMethod = Constants.httpGet
-        request.setValue(Constants.applicationJSON, forHTTPHeaderField: Constants.contentTypeKey)
-        request.setValue(Constants.applicationJSON, forHTTPHeaderField: Constants.acceptKey)
+        request.httpMethod = ServiceCommonHeaders.httpGet
+        request.setValue(ServiceCommonHeaders.applicationJSON, forHTTPHeaderField: ServiceCommonHeaders.contentTypeKey)
+        request.setValue(ServiceCommonHeaders.applicationJSON, forHTTPHeaderField: ServiceCommonHeaders.acceptKey)
         
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
@@ -65,9 +66,9 @@ class CategoriesService: CategoriesServiceClient {
         }
         
         var request = URLRequest(url: url)
-        request.httpMethod = Constants.httpGet
-        request.setValue(Constants.applicationJSON, forHTTPHeaderField: Constants.contentTypeKey)
-        request.setValue(Constants.applicationJSON, forHTTPHeaderField: Constants.acceptKey)
+        request.httpMethod = ServiceCommonHeaders.httpGet
+        request.setValue(ServiceCommonHeaders.applicationJSON, forHTTPHeaderField: ServiceCommonHeaders.contentTypeKey)
+        request.setValue(ServiceCommonHeaders.applicationJSON, forHTTPHeaderField: ServiceCommonHeaders.acceptKey)
         
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
@@ -100,14 +101,5 @@ class CategoriesService: CategoriesServiceClient {
         }
         
         task.resume()
-    }
-}
-
-extension CategoriesService {
-    struct Constants {
-        static let httpGet = "GET"
-        static let applicationJSON = "application/json"
-        static let contentTypeKey = "Content-Type"
-        static let acceptKey = "Accept"
     }
 }

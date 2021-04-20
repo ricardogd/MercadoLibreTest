@@ -16,4 +16,15 @@ class ServiceProvider {
     static var getImageClient: GetImageServiceClient {
         GetImageService()
     }
+    
+    static var productsClient: ProductsServiceClient {
+        ProductsService()
+    }
+}
+
+enum ServiceCommonHeaders {
+    static let httpGet = "GET"
+    static let applicationJSON = "application/json"
+    static let contentTypeKey = "Content-Type"
+    static let acceptKey = "Accept"
 }

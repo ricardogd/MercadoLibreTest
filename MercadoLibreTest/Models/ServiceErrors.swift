@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ServiceErrors: Error {
+enum ServiceErrors: Error {
     case unableToParseURL
     case missingResponse
     case serviceFailure(Int)

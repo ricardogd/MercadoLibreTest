@@ -48,8 +48,8 @@ class HomeCoordinator: Coordinator {
     }
     
     //MARK: - Navigation
-    func navigateToCategory() {
-        let productListViewModel = ProductListViewModel(coordinator: self)
+    func navigateToCategory(withCategoryId id: String) {
+        let productListViewModel = ProductListViewModel(coordinator: self, withCategoryId: id)
         let vc = UIHostingController(rootView: ProductsListView(productListViewModel: productListViewModel))
         self.navigationController.pushViewController(vc, animated: true)
     }

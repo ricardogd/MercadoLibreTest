@@ -26,7 +26,8 @@ struct ProductListItem: View {
                 HStack() {
                     //Loading image animation - image place holder - product image
                     VStack(alignment: .leading) {
-                        URLImageView(urlImageViewModel: productItemViewModel.productImage)
+                        let productImage = URLImageViewModel(url: productItemViewModel.productImage)
+                        URLImageView(urlImageViewModel: productImage)
                     }
                     .padding(.leading, 10)
                         
@@ -53,7 +54,8 @@ struct ProductListItem: View {
 
 struct ProductListItem_Previews: PreviewProvider {
     
-    static let productItemViewModel = ProductItemViewModel()
+    static let product = Product()
+    static let productItemViewModel = ProductItemViewModel(product: product)
     
     static var previews: some View {
         ProductListItem(productItemViewModel: productItemViewModel)

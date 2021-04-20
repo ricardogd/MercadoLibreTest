@@ -13,9 +13,16 @@ struct URLImageView: View {
     
     var body: some View {
         
-        if urlImageViewModel.shouldShowPlaceHolder {
+        if urlImageViewModel.isLoading {
             VStack {
-                Image(systemName: "photo.on.rectangle")
+                ShimmerAnimationView()
+                    .frame(width: 120, height: 120, alignment: .center)
+                    .cornerRadius(10)
+            }
+        }
+        else {
+            VStack {
+                Image(uiImage: urlImageViewModel.image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 120, height: 120, alignment: .center)

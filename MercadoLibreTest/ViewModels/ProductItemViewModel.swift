@@ -12,7 +12,7 @@ import Combine
 class ProductItemViewModel: ObservableObject {
     
     //MARK: - Publisehd Variables
-    @Published var productImage: URLImageViewModel = URLImageViewModel(url: "")
+    @Published var productImage: String = ""
     @Published var productTitle: String = ""
     @Published var productPrice: String = ""
     @Published var productCurrency: String = ""
@@ -21,12 +21,12 @@ class ProductItemViewModel: ObservableObject {
     @Published var productShipping: String = ""
     
     //MARK: - Constructor
-    init() {
-        //TODO: Move these calls when service had responded
-        setProductPrice(price: 10000, currency: "COP")
-        setProductInstallments()
-        setProductShipping(isFreeShipping: true)
-        setProductTitle(title: "Nombre del producto y descripción corta sobre él mismo")
+    init(product: Product) {
+        productImage = product.image ?? ""
+        setProductPrice(price: product.price, currency: product.currency)
+        setProductInstallments(installment: product.installments)
+        setProductShipping(isFreeShipping: product.shipping?.freeShipping ?? false)
+        setProductTitle(title: product.title)
     }
     
     //MARK: - UI
@@ -41,16 +41,15 @@ class ProductItemViewModel: ObservableObject {
         productCurrency = currency
     }
     
-    func setProductInstallments() {
-        //TODO: Refactor these variables to use Installments object data returned from the service
-        let numberOfPayments = 12
-        let amount = 2000
+    func setProductInstallments(installment: Installment?) {
+        let numberOfPayments = installment?.quantity ?? 0
+        let amount = installment?.amount ?? 0.0
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         let amountStrig = formatter.string(from: NSNumber(value: amount)) ?? "$ 0.00"
         
         productInstallments = String(numberOfPayments) + "x " + amountStrig
-        hasInterestRate = false
+        hasInterestRate = installment?.rate ?? 1 == 0 ? false : true
     }
     
     func setProductShipping(isFreeShipping: Bool) {

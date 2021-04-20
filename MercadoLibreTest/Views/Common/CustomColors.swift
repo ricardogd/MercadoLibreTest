@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public enum CustomColors {
+enum CustomColors {
     static let lightGray = Color("Light-Gray")
     static let yellow = Color("Yellow")
     static let green = Color("Green")

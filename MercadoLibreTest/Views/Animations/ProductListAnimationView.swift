@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductListAnimationView: View {
         
-    public var body: some View {
+    var body: some View {
         
         GeometryReader { geometry in
             ZStack {

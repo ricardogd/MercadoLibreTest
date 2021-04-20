@@ -10,18 +10,22 @@ import Foundation
 /// Utility class for obtaining the correct URL for each `Service Call`
 struct URLBuilder {
     
-    var domain: String!
+    var domain: String = ""
     
     init() {
         self.domain = getMainDomain()
     }
     
     func getCategoriesPath() -> String {
-        return domain + "/sites/MLA/categories"
+        return domain + "/sites/{SITE_ID}/categories"
     }
     
     func getCategoryPath() -> String {
         return domain + "/categories/{CATEGORY_ID}"
+    }
+    
+    func getProductsByCategoryPath() -> String {
+        return domain + "/sites/{SITE_ID}/search?category={CATEGORY_ID}"
     }
 
     func getMainDomain() -> String {

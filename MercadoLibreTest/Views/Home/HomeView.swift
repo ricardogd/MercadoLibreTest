@@ -39,8 +39,9 @@ struct HomeView: View {
             else if homeViewModel.showProductList {
                 //Products List
                 List {
-                    ForEach(0...7, id: \.self) { raw in
-                        ProductListItem(productItemViewModel: homeViewModel.productItemViewModel)
+                    ForEach(homeViewModel.products, id: \.id) { product in
+                        let productItemViewModel = ProductItemViewModel(product: product)
+                        ProductListItem(productItemViewModel: productItemViewModel)
                             .onTapGesture {
                                 homeViewModel.navigateToProduct()
                             }
@@ -56,7 +57,7 @@ struct HomeView: View {
                         let categoryListItemVM = CategoryListItemViewModel(categoryDetail: category)
                         CategoryListItem(categoryListItemVM: categoryListItemVM)
                             .onTapGesture {
-                                homeViewModel.navigateToCategory()
+                                homeViewModel.navigateToCategory(withCategoryId: category.id)
                             }
                             .id(UUID())
                             .frame(height: categoryListItemVM.listItemHeight)

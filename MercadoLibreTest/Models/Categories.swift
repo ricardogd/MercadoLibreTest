@@ -7,12 +7,12 @@
 
 import Foundation
 
-class Category: Codable, Identifiable {
+struct Category: Codable, Identifiable {
     var id: String
     var name: String
 }
 
-class CategoryDetail: Codable, Identifiable {
+struct CategoryDetail: Codable, Identifiable {
     var id: String
     var name: String
     var picture: String

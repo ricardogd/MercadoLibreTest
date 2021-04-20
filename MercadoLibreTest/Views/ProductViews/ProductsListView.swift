@@ -37,10 +37,11 @@ struct ProductsListView: View {
                 .padding(.bottom, 1)
             }
             else {
-                //Categories List
+                //Products List
                 List {
-                    ForEach(0...7, id: \.self) { raw in
-                        ProductListItem(productItemViewModel: productListViewModel.productItemViewModel)
+                    ForEach(productListViewModel.products, id: \.id) { product in
+                        let productItemViewModel = ProductItemViewModel(product: product)
+                        ProductListItem(productItemViewModel: productItemViewModel)
                             .onTapGesture {
                                 productListViewModel.navigateToProduct()
                             }
@@ -57,7 +58,7 @@ struct ProductsListView_Previews: PreviewProvider {
     
     static let nav = UINavigationController()
     static let coor = HomeCoordinator(navigationController: nav)
-    static let productViewModel = ProductListViewModel(coordinator: coor)
+    static let productViewModel = ProductListViewModel(coordinator: coor, withCategoryId: "")
     
     static var previews: some View {
         ProductsListView(productListViewModel: productViewModel)

@@ -13,6 +13,7 @@ class HomeViewModel: ObservableObject {
     
     //MARK: - Publisehd Variables
     @Published var categories: [CategoryDetail] = []
+    @Published var products: [Product] = []
     @Published var isLoading : Bool = false
     @Published var showProductList : Bool = false
     @State var shouldSearchForProduct : Bool = false {
@@ -23,15 +24,10 @@ class HomeViewModel: ObservableObject {
     
     //MARK: - Variables
     weak var coordinator: HomeCoordinator?
-    var productItemViewModel: ProductItemViewModel
 
     //MARK: - Constructor
     init(coordinator: HomeCoordinator) {
         self.coordinator = coordinator
-        
-        //TODO: Initialize this with model from service
-        productItemViewModel = ProductItemViewModel()
-        
         self.isLoading = true
         getCategories()
     }
@@ -39,7 +35,7 @@ class HomeViewModel: ObservableObject {
     //MARK: - Service Calls
     func getCategories() {
         let serviceProvider = ServiceProvider.categoriesClient
-        serviceProvider.getCategories(forSite: "MLA") { [weak self] (result) in
+        serviceProvider.getCategories(forSite: "MCO") { [weak self] (result) in
             switch result {
             case .success(let categories):
                 self?.getCategoriesWithImages(categories: categories)
@@ -94,8 +90,8 @@ class HomeViewModel: ObservableObject {
     }
     
     //MARK: - Navigation
-    func navigateToCategory() {
-        coordinator?.navigateToCategory()
+    func navigateToCategory(withCategoryId id: String) {
+        coordinator?.navigateToCategory(withCategoryId: id)
     }
     
     func navigateToProduct() {
