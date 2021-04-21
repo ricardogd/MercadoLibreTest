@@ -11,7 +11,6 @@ struct HomeView: View {
     
     //MARK: - States
     @StateObject var homeViewModel: HomeViewModel
-    @State private var searchText : String = ""
 
     //MARK: - Content View
     var body: some View {
@@ -23,7 +22,7 @@ struct HomeView: View {
                     .edgesIgnoringSafeArea(.all)
                     .frame(height: 90)
                 
-                SearchBarView(text: $searchText, shouldSearchForPruduct: $homeViewModel.shouldSearchForProduct)
+                SearchBarView(text: $homeViewModel.searchText, shouldSearchForPruduct: $homeViewModel.shouldSearchForProduct)
             }
             
             if homeViewModel.isLoading {
@@ -33,6 +32,7 @@ struct HomeView: View {
                         ForEach(0...1, id: \.self) { raw in
                             ProductListAnimationView()
                                 .frame(height: 200)
+                                .padding()
                         }
                     }
                 }

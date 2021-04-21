@@ -31,28 +31,27 @@ struct SearchBarView: UIViewRepresentable {
     
     //Required to create the Coordinator in the current context
     func makeCoordinator() -> SearchBarView.Coordinator {
-        return Coordinator(text: $text, shouldSearchForPruduct: $shouldSearchForPruduct)
+        return Coordinator(searchBarView: self)
     }
     
     //MARK: - Coordinator
     //Coordinator class Allows the view to implement the UIKit delegates
     class Coordinator: NSObject, UISearchBarDelegate {
 
-        @Binding var text: String
-        @Binding var shouldSearchForPruduct: Bool
+        let searchBarView: SearchBarView
 
-        init(text: Binding<String>, shouldSearchForPruduct: Binding<Bool>) {
-            _text = text
-            _shouldSearchForPruduct = shouldSearchForPruduct
+        init(searchBarView: SearchBarView) {
+            self.searchBarView = searchBarView
         }
 
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            text = searchText
+            searchBarView.text = searchText
         }
         
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
             searchBar.resignFirstResponder()
-            shouldSearchForPruduct = true
+            searchBarView.text = searchBar.text ?? ""
+            searchBarView.shouldSearchForPruduct = true
         }
     }
 }

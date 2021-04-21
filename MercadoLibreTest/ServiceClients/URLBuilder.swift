@@ -27,6 +27,10 @@ struct URLBuilder {
     func getProductsByCategoryPath() -> String {
         return domain + "/sites/{SITE_ID}/search?category={CATEGORY_ID}"
     }
+    
+    func getSearchForProductPath() -> String {
+        return domain + "/sites/{SITE_ID}/search"
+    }
 
     func getMainDomain() -> String {
         return "https://api.mercadolibre.com"

@@ -14,7 +14,8 @@ class ProductListViewModel: ObservableObject {
     //MARK: - Publisehd Variables
     @Published var isLoading : Bool = false
     @Published var products: [Product] = []
-    @State var shouldSearchForProduct : Bool = false {
+    var searchText : String = ""
+    var shouldSearchForProduct : Bool = false {
         didSet {
             searchForProduct()
         }
@@ -22,6 +23,7 @@ class ProductListViewModel: ObservableObject {
     
     //MARK: - Variables
     weak var coordinator: HomeCoordinator?
+    let serviceProvider = ServiceProvider.productsClient
     
     //MARK: - Constructor
     init(coordinator: HomeCoordinator, withCategoryId id: String) {
@@ -35,15 +37,32 @@ class ProductListViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.isLoading = true
         }
+        
+        serviceProvider.searchForProduct(forSite: "MCO", with: searchText) { [weak self] (result) in
+            switch result {
+            case .success(let products):
+                DispatchQueue.main.async {
+                    self?.products = products.products
+                    self?.isLoading = false
+                }
+                break
+                
+            case .failure(_):
+                DispatchQueue.main.async {
+                    self?.isLoading = false
+                }
+
+                break
+            }
+        }
     }
     
     func getProductsByCategory(categoryId: String) {
-        let serviceProvider = ServiceProvider.productsClient
         serviceProvider.getProductByCategory(forSite: "MCO", with: categoryId) { [weak self] (result) in
             switch result {
-            case .success(let product):
+            case .success(let products):
                 DispatchQueue.main.async {
-                    self?.products = product.products
+                    self?.products = products.products
                     self?.isLoading = false
                 }
                 break

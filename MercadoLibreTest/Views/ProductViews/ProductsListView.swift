@@ -11,7 +11,6 @@ struct ProductsListView: View {
     
     //MARK: - States
     @StateObject var productListViewModel: ProductListViewModel
-    @State private var searchText : String = ""
 
     //MARK: - Content View
     var body: some View {
@@ -23,7 +22,8 @@ struct ProductsListView: View {
                     .edgesIgnoringSafeArea(.all)
                     .frame(height: 90)
                 
-                SearchBarView(text: $searchText, shouldSearchForPruduct: $productListViewModel.shouldSearchForProduct)
+                
+                SearchBarView(text: $productListViewModel.searchText, shouldSearchForPruduct: $productListViewModel.shouldSearchForProduct)
             }
             
             if productListViewModel.isLoading == true {

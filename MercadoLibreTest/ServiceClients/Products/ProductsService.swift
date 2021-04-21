@@ -57,4 +57,65 @@ class ProductsService: ProductsServiceClient {
         
         task.resume()
     }
+    
+    func searchForProduct(forSite siteId: String, with query: String, handler: @escaping (Result<Products, ServiceErrors>) -> Void) {
+        
+        let queryItem = URLQueryItem(name: Constants.queryKey,value: query)
+        let path = URLBuilder().getSearchForProductPath()
+        let fullPath = path.replacingOccurrences(of: "{SITE_ID}", with: siteId)
+        guard let url = URL(string: fullPath) else {
+            return handler(.failure(.unableToParseURL))
+        }
+        
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            return handler(.failure(.unableToParseURL))
+        }
+        components.queryItems = [queryItem]
+        guard let composedUrl = components.url else {
+            return handler(.failure(.unableToParseURL))
+        }
+        
+        var request = URLRequest(url: composedUrl)
+        request.httpMethod = ServiceCommonHeaders.httpGet
+        request.setValue(ServiceCommonHeaders.applicationJSON, forHTTPHeaderField: ServiceCommonHeaders.contentTypeKey)
+        request.setValue(ServiceCommonHeaders.applicationJSON, forHTTPHeaderField: ServiceCommonHeaders.acceptKey)
+        
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                handler(.failure(.unknownError(error)))
+                return
+            }
+            
+            let httpResposne = response as! HTTPURLResponse
+            guard case 200..<300 = httpResposne.statusCode else {
+                handler(.failure(.serviceFailure(httpResposne.statusCode)))
+                return
+            }
+            
+            guard let data = data else {
+                handler(.failure(.missingResponse))
+                return
+            }
+            
+            let serviceResponse: Products
+            
+            do {
+                serviceResponse = try JSONDecoder().decode(Products.self, from: data)
+            } catch {
+                let json = String(data: data, encoding: .utf8)
+                handler(.failure(.unableToParseResponse(error, json)))
+                return
+            }
+
+            handler(.success(serviceResponse))
+        }
+        
+        task.resume()
+    }
+}
+
+extension ProductsService {
+    enum Constants {
+        static let queryKey = "q"
+    }
 }

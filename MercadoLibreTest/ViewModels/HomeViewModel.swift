@@ -16,7 +16,8 @@ class HomeViewModel: ObservableObject {
     @Published var products: [Product] = []
     @Published var isLoading : Bool = false
     @Published var showProductList : Bool = false
-    @State var shouldSearchForProduct : Bool = false {
+    var searchText : String = ""
+    var shouldSearchForProduct : Bool = false {
         didSet {
             searchForProduct()
         }
@@ -24,6 +25,7 @@ class HomeViewModel: ObservableObject {
     
     //MARK: - Variables
     weak var coordinator: HomeCoordinator?
+    let serviceProvider = ServiceProvider.categoriesClient
 
     //MARK: - Constructor
     init(coordinator: HomeCoordinator) {
@@ -34,7 +36,6 @@ class HomeViewModel: ObservableObject {
     
     //MARK: - Service Calls
     func getCategories() {
-        let serviceProvider = ServiceProvider.categoriesClient
         serviceProvider.getCategories(forSite: "MCO") { [weak self] (result) in
             switch result {
             case .success(let categories):
@@ -53,7 +54,6 @@ class HomeViewModel: ObservableObject {
     func getCategoriesWithImages(categories: [Category]) {
         let dispatchGroup = DispatchGroup()
         var categoriesDetail: [CategoryDetail] = []
-        let serviceProvider = ServiceProvider.categoriesClient
         
         for category in categories {
             
@@ -84,8 +84,27 @@ class HomeViewModel: ObservableObject {
     }
     
     func searchForProduct() {
+        let serviceProvider = ServiceProvider.productsClient
         DispatchQueue.main.async {
             self.isLoading = true
+        }
+        serviceProvider.searchForProduct(forSite: "MCO", with: searchText) { [weak self] (result) in
+            switch result {
+            case .success(let products):
+                DispatchQueue.main.async {
+                    self?.products = products.products
+                    self?.showProductList = true
+                    self?.isLoading = false
+                }
+                break
+                
+            case .failure(_):
+                DispatchQueue.main.async {
+                    self?.isLoading = false
+                }
+
+                break
+            }
         }
     }
     
