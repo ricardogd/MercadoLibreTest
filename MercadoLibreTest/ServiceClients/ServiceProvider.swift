@@ -20,6 +20,10 @@ class ServiceProvider {
     static var productsClient: ProductsServiceClient {
         ProductsService()
     }
+    
+    static var productDetailClient: ProductDetailServiceClient {
+        ProductDetailService()
+    }
 }
 
 enum ServiceCommonHeaders {

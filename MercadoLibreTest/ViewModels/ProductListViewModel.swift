@@ -77,7 +77,7 @@ class ProductListViewModel: ObservableObject {
     }
     
     //MARK: - Navigation
-    func navigateToProduct() {
-        coordinator?.navigateToProduct()
+    func navigateToProduct(withProductId id: String) {
+        coordinator?.navigateToProduct(withProductId: id)
     }
 }

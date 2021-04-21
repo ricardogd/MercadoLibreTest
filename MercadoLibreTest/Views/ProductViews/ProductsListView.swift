@@ -47,7 +47,7 @@ struct ProductsListView: View {
                             let productItemViewModel = ProductItemViewModel(product: product)
                             ProductListItem(productItemViewModel: productItemViewModel)
                                 .onTapGesture {
-                                    productListViewModel.navigateToProduct()
+                                    productListViewModel.navigateToProduct(withProductId: product.id)
                                 }
                                 .frame(height: 180)
                                 .padding()

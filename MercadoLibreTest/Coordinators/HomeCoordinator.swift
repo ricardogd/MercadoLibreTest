@@ -54,8 +54,9 @@ class HomeCoordinator: Coordinator {
         self.navigationController.pushViewController(vc, animated: true)
     }
     
-    func navigateToProduct() {
-        let vc = UIHostingController(rootView: ProductDetailView())
+    func navigateToProduct(withProductId id: String) {
+        let productDetailViewModel = ProductDetailViewModel(coordinator: self, withProductId: id)
+        let vc = UIHostingController(rootView: ProductDetailView(productDetailVM: productDetailViewModel))
         self.navigationController.pushViewController(vc, animated: true)
     }
 }

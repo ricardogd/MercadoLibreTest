@@ -46,9 +46,10 @@ struct HomeView: View {
                             let productItemViewModel = ProductItemViewModel(product: product)
                             ProductListItem(productItemViewModel: productItemViewModel)
                                 .onTapGesture {
-                                    homeViewModel.navigateToProduct()
+                                    homeViewModel.navigateToProduct(withProductId: product.id)
                                 }
-                                .frame(height: 200)
+                                .frame(height: 180)
+                                .padding()
                         }
                     }
                 }

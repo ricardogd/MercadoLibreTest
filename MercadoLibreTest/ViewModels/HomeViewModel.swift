@@ -113,7 +113,7 @@ class HomeViewModel: ObservableObject {
         coordinator?.navigateToCategory(withCategoryId: id)
     }
     
-    func navigateToProduct() {
-        coordinator?.navigateToProduct()
+    func navigateToProduct(withProductId id: String) {
+        coordinator?.navigateToProduct(withProductId: id)
     }
 }

@@ -11,4 +11,5 @@ enum CustomColors {
     static let lightGray = Color("Light-Gray")
     static let yellow = Color("Yellow")
     static let green = Color("Green")
+    static let blue = Color("Blue")
 }

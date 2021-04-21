@@ -9,21 +9,38 @@ import SwiftUI
 
 struct ProductDescriptionView: View {
     
-    @State var description: String = ""
+    @StateObject var descriptionVM: ProductDescriptionViewModel
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Descripción")
-                .bold()
-                .padding(.bottom, 5)
-            Text(description)
+        
+        if descriptionVM.isLoading {
+            VStack(alignment: .leading) {
+                ShimmerAnimationView()
+                    .frame(width: 200, height: 30, alignment: .center)
+                    .cornerRadius(10)
+                    .padding(.top, 10)
+                ShimmerAnimationView()
+                    .frame(width: UIScreen.main.bounds.width - 40, height: 120, alignment: .center)
+                    .cornerRadius(10)
+            }
         }
-        .padding(.top, 20)
+        else {
+            VStack(alignment: .leading) {
+                Text("Descripción")
+                    .bold()
+                    .padding(.bottom, 5)
+                Text(descriptionVM.description)
+            }
+            .padding(.top, 20)
+        }
     }
 }
 
 struct ProductDescriptionView_Previews: PreviewProvider {
+    
+    static let descriptionVM = ProductDescriptionViewModel(withId: "")
+    
     static var previews: some View {
-        ProductDescriptionView(description: "Product description detailed about the propreties, benefits, limitations and any other importatn information about the product that is being displayed in this detail screen")
+        ProductDescriptionView(descriptionVM: descriptionVM)
     }
 }
