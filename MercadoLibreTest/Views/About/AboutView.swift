@@ -8,25 +8,40 @@
 import SwiftUI
 
 struct AboutView: View {
-    let options = ["Desarrollado por", "Prueba", "Versión", "otros"]
     
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+
     var body: some View {
         VStack {
             ZStack {
                 Rectangle()
-                    .fill(Color.yellow)
+                    .fill(LinearGradient(gradient: Gradient(colors: [CustomColors.yellow, .white]), startPoint: .center, endPoint: .bottom))
                     .edgesIgnoringSafeArea(.all)
-                    .frame(height: 100)
+                    .frame(height: 90)
                 
             }.padding(.bottom)
                         
             VStack {
                 List {
-                    ForEach(self.options, id: \.self) { option in
-                        HStack {
-                            Text(option)
-                            Text(": Test")
-                        }
+                    HStack {
+                        Text("Test Mercado Libre:")
+                            .bold()
+                        Text("Mobile iOS Dev")
+                    }
+                    HStack {
+                        Text("Versión:")
+                            .bold()
+                        Text(appVersion ?? "N/A")
+                    }
+                    HStack {
+                        Text("Desarrollado por:")
+                            .bold()
+                        Text("Ricardo Grajales")
+                    }
+                    HStack {
+                        Text("FeedBack:")
+                            .bold()
+                        Text("ricardo.grajales21@gmail.com")
                     }
                 }
             }

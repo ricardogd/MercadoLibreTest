@@ -31,7 +31,7 @@ struct HomeView: View {
                     VStack {
                         ForEach(0...1, id: \.self) { raw in
                             ProductListAnimationView()
-                                .frame(height: 200)
+                                .frame(height: 180)
                                 .padding()
                         }
                     }

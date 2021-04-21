@@ -11,7 +11,7 @@ import SwiftUI
 
 
 private struct Constants {
-    static let aboutTitle = "About"
+    static let aboutTitle = "Información"
     static let aboutTabBarIcon = "About_icon"
 }
 

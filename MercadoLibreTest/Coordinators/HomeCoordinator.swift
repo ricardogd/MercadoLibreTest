@@ -10,8 +10,10 @@ import UIKit
 import SwiftUI
 
 private struct Constants {
-    static let homeTitle = "Home"
+    static let homeTitle = "Inicio"
     static let homeTabBarIcon = "Home_icon"
+    static let productsTitle = "Productos"
+    static let productDetailTitle = "Detalle del Producto"
 }
 
 class HomeCoordinator: Coordinator {
@@ -51,12 +53,14 @@ class HomeCoordinator: Coordinator {
     func navigateToCategory(withCategoryId id: String) {
         let productListViewModel = ProductListViewModel(coordinator: self, withCategoryId: id)
         let vc = UIHostingController(rootView: ProductsListView(productListViewModel: productListViewModel))
+        vc.title = Constants.productsTitle
         self.navigationController.pushViewController(vc, animated: true)
     }
     
     func navigateToProduct(withProductId id: String) {
         let productDetailViewModel = ProductDetailViewModel(coordinator: self, withProductId: id)
         let vc = UIHostingController(rootView: ProductDetailView(productDetailVM: productDetailViewModel))
+        vc.title = Constants.productDetailTitle
         self.navigationController.pushViewController(vc, animated: true)
     }
 }
