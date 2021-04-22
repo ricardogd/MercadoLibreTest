@@ -110,8 +110,11 @@ class ProductDetailViewModel: ObservableObject {
     func setOriginalProductPrice(price: Double) {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
+        formatter.generatesDecimalNumbers = false
+        formatter.alwaysShowsDecimalSeparator = false
+        formatter.currencySymbol = "$"
         if price > 0.0 {
-            originalProductPrice = formatter.string(from: NSNumber(value: price)) ?? "$ 0.00"
+            originalProductPrice = formatter.string(from: NSNumber(value: price)) ?? "$ 0"
         }
         else {
             originalProductPrice = ""
@@ -121,7 +124,10 @@ class ProductDetailViewModel: ObservableObject {
     func setProductPrice(price: Double, currency: String) {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        productPrice = formatter.string(from: NSNumber(value: price)) ?? "$ 0.00"
+        formatter.generatesDecimalNumbers = false
+        formatter.alwaysShowsDecimalSeparator = false
+        formatter.currencySymbol = "$"
+        productPrice = formatter.string(from: NSNumber(value: price)) ?? "$ 0"
         productCurrency = currency
     }
     
@@ -130,7 +136,10 @@ class ProductDetailViewModel: ObservableObject {
         let amount = installment?.amount ?? 0.0
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        let amountStrig = formatter.string(from: NSNumber(value: amount)) ?? "$ 0.00"
+        formatter.generatesDecimalNumbers = false
+        formatter.alwaysShowsDecimalSeparator = false
+        formatter.currencySymbol = "$"
+        let amountStrig = formatter.string(from: NSNumber(value: amount)) ?? "$ 0"
         
         productInstallments = String(numberOfPayments) + "x " + amountStrig
         hasInterestRate = installment?.rate ?? 1 == 0 ? false : true

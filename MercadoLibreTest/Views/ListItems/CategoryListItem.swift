@@ -30,6 +30,8 @@ struct CategoryListItem: View {
                     HStack {
                         Text(categoryListItemVM.name)
                             .font(.title).bold()
+                            .background(CustomColors.lightGray)
+                            .cornerRadius(5)
                         Spacer()
                     }
                     .padding(20)

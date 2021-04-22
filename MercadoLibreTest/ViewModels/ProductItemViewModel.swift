@@ -37,7 +37,10 @@ class ProductItemViewModel: ObservableObject {
     func setProductPrice(price: Double, currency: String) {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        productPrice = formatter.string(from: NSNumber(value: price)) ?? "$ 0.00"
+        formatter.generatesDecimalNumbers = false
+        formatter.alwaysShowsDecimalSeparator = false
+        formatter.currencySymbol = "$"
+        productPrice = formatter.string(from: NSNumber(value: price)) ?? "$ 0"
         productCurrency = currency
     }
     
@@ -46,7 +49,10 @@ class ProductItemViewModel: ObservableObject {
         let amount = installment?.amount ?? 0.0
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        let amountStrig = formatter.string(from: NSNumber(value: amount)) ?? "$ 0.00"
+        formatter.generatesDecimalNumbers = false
+        formatter.alwaysShowsDecimalSeparator = false
+        formatter.currencySymbol = "$"
+        let amountStrig = formatter.string(from: NSNumber(value: amount)) ?? "$ 0"
         
         productInstallments = String(numberOfPayments) + "x " + amountStrig
         hasInterestRate = installment?.rate ?? 1 == 0 ? false : true

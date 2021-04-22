@@ -22,6 +22,7 @@ struct SearchBarView: UIViewRepresentable {
         searchBar.autocapitalizationType = .none
         searchBar.searchBarStyle = .minimal
         searchBar.searchTextField.backgroundColor = .white
+//        searchBar.
         
         return searchBar
     }
@@ -53,6 +54,16 @@ struct SearchBarView: UIViewRepresentable {
             searchBar.resignFirstResponder()
             searchBarView.text = searchBar.text ?? ""
             searchBarView.shouldSearchForPruduct = true
+        }
+        
+        func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+            searchBar.showsCancelButton = true
+        }
+        
+        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            searchBar.showsCancelButton = false
+            searchBar.text = ""
+            searchBar.resignFirstResponder()
         }
     }
 }
