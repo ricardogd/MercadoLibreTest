@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import os.log
 
 class MainTabBarController: UITabBarController {
     
@@ -17,5 +18,7 @@ class MainTabBarController: UITabBarController {
         self.navigationController?.navigationBar.isHidden = true
         
         viewControllers = [homeCoordinator.navigationController, aboutCoordinator.navigationController]
+        
+        Logger.showingViewSuccess.info("Showing Main Tab Bar Controller")
     }
 }

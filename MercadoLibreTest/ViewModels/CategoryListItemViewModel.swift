@@ -34,6 +34,9 @@ class CategoryListItemViewModel: ObservableObject {
                 }
                 break
             case .failure(_):
+                DispatchQueue.main.async {
+                    self?.image = UIImage(named: "CategoryPlaceHolder") ?? UIImage()
+                }
                 break
             }
         }

@@ -8,11 +8,13 @@
 import Foundation
 import Combine
 import SwiftUI
+import os.log
 
 class ProductDetailViewModel: ObservableObject {
     
     //MARK: - Published Variables
     @Published var isLoading: Bool = false
+    @Published var showErrorAlert : Bool = false
     @Published var detailImages: [CarouselImage] = [CarouselImage(image: UIImage(named: "CategoryPlaceHolder") ?? UIImage())]
     @Published var title: String = ""
     @Published var originalProductPrice: String = ""
@@ -27,6 +29,7 @@ class ProductDetailViewModel: ObservableObject {
     weak var coordinator: HomeCoordinator?
     let serviceProvider = ServiceProvider.productDetailClient
     var productDetail: ProductDetail?
+    var errorMessage: String = ""
 
     //MARK: - Constructor
     init(coordinator: HomeCoordinator, withProductId id: String) {
@@ -44,9 +47,12 @@ class ProductDetailViewModel: ObservableObject {
                 self?.getProductImages(detailImages: productDetail.detailImages)
                 break
                 
-            case .failure(_):
+            case .failure(let error):
                 DispatchQueue.main.async {
                     self?.isLoading = false
+                    self?.getErrorMessage(error: error)
+                    
+                    Logger.showingDetailError.error("Error showing product detail")
                 }
                 break
             }
@@ -93,6 +99,8 @@ class ProductDetailViewModel: ObservableObject {
                     self.setProductShipping(isFreeShipping: productDetail.shipping.freeShipping)
                     self.productDescription = productDetail.id
                     self.isLoading = false
+                    
+                    Logger.showingDetailSuccess.info("Showing product detail successfully")
                 }
             }
         }
@@ -130,10 +138,18 @@ class ProductDetailViewModel: ObservableObject {
     
     func setProductShipping(isFreeShipping: Bool) {
         if isFreeShipping {
-            productShipping = "Envío gratis"
+            productShipping = Localization.localizedString(fromKey: "product.shipping.free")
         }
         else {
-            productShipping = "No incluye el envío"
+            productShipping = Localization.localizedString(fromKey: "product.shipping.notincluded")
         }
+    }
+    
+    func getErrorMessage(error: ServiceErrors) {
+        if !error.localizedDescription.isEmpty {
+            errorMessage = error.localizedDescription
+        }
+        errorMessage = Localization.localizedString(fromKey: "aler.error.defaultmessage")
+        showErrorAlert = true
     }
 }

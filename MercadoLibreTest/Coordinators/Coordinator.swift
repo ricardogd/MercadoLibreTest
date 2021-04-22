@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+///Base protocol used to defined the coordinators implementations
 protocol Coordinator {
     var navigationController: UINavigationController { get set }
 }

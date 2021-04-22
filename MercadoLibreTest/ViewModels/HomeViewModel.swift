@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import os.log
 
 class HomeViewModel: ObservableObject {
     
@@ -15,17 +16,19 @@ class HomeViewModel: ObservableObject {
     @Published var categories: [CategoryDetail] = []
     @Published var products: [Product] = []
     @Published var isLoading : Bool = false
+    @Published var showErrorAlert : Bool = false
     @Published var showProductList : Bool = false
+    
+    //MARK: - Variables
+    weak var coordinator: HomeCoordinator?
+    let serviceProvider = ServiceProvider.categoriesClient
+    var errorMessage: String = ""
     var searchText : String = ""
     var shouldSearchForProduct : Bool = false {
         didSet {
             searchForProduct()
         }
     }
-    
-    //MARK: - Variables
-    weak var coordinator: HomeCoordinator?
-    let serviceProvider = ServiceProvider.categoriesClient
 
     //MARK: - Constructor
     init(coordinator: HomeCoordinator) {
@@ -42,9 +45,11 @@ class HomeViewModel: ObservableObject {
                 self?.getCategoriesWithImages(categories: categories)
                 break
                 
-            case .failure(_):
+            case .failure(let error):
                 DispatchQueue.main.async {
                     self?.isLoading = false
+                    self?.getErrorMessage(error: error)
+                    Logger.showingCategoriesError.error("Error Showing Categories")
                 }
                 break
             }
@@ -79,6 +84,8 @@ class HomeViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.categories = categoriesDetail
                 self.isLoading = false
+                
+                Logger.showingCategoriesSuccess.info("Showing Categories")
             }
         }
     }
@@ -95,17 +102,30 @@ class HomeViewModel: ObservableObject {
                     self?.products = products.products
                     self?.showProductList = true
                     self?.isLoading = false
+                    
+                    Logger.searchProductSuccess.info("Showing products for search successfully")
                 }
                 break
                 
-            case .failure(_):
+            case .failure(let error):
                 DispatchQueue.main.async {
                     self?.isLoading = false
+                    self?.getErrorMessage(error: error)
+                    Logger.searchProductError.error("Error showing products for search")
                 }
 
                 break
             }
         }
+    }
+    
+    //MARK: UI
+    func getErrorMessage(error: ServiceErrors) {
+        if !error.localizedDescription.isEmpty {
+            errorMessage = error.localizedDescription
+        }
+        errorMessage = Localization.localizedString(fromKey: "aler.error.defaultmessage")
+        showErrorAlert = true
     }
     
     //MARK: - Navigation

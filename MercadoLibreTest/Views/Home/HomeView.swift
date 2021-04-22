@@ -76,6 +76,11 @@ struct HomeView: View {
                 .padding(.bottom, 1)
             }
         }
+        .alert(isPresented: $homeViewModel.showErrorAlert, content: {
+            Alert(title: Text(Localization.localizedString(fromKey: "alert.error.title")),
+                  message: Text(homeViewModel.errorMessage),
+                  dismissButton: .default(Text(Localization.localizedString(fromKey: "alert.error.button"))))
+        })
     }
 }
 

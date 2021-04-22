@@ -8,10 +8,11 @@
 import Foundation
 import UIKit
 import SwiftUI
+import os.log
 
 
 private struct Constants {
-    static let aboutTitle = "Información"
+    static let aboutTitle = Localization.localizedString(fromKey: "navigation.title.about")
     static let aboutTabBarIcon = "About_icon"
 }
 
@@ -27,6 +28,8 @@ class AboutCoordinator: Coordinator {
         vc.tabBarItem = setUpTabBar()
         
         self.navigationController.viewControllers = [vc]
+        
+        Logger.showingViewSuccess.info("Showing About Successfully")
     }
     
     func setUpTabBar() -> UITabBarItem {

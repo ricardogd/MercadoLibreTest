@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+///MainCoordinator indicates the initial flow for the App
 class MainCoordinator: Coordinator {
     
     //MARK: - Coordinator Delegate implementation

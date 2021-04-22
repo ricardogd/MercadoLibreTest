@@ -59,6 +59,11 @@ struct ProductDetailView: View {
                 .padding()
             }
         }
+        .alert(isPresented: $productDetailVM.showErrorAlert, content: {
+            Alert(title: Text(Localization.localizedString(fromKey: "alert.error.title")),
+                  message: Text(productDetailVM.errorMessage),
+                  dismissButton: .default(Text(Localization.localizedString(fromKey: "alert.error.button"))))
+        })
     }
 }
 

@@ -8,12 +8,13 @@
 import Foundation
 import UIKit
 import SwiftUI
+import os.log
 
 private struct Constants {
-    static let homeTitle = "Inicio"
+    static let homeTitle = Localization.localizedString(fromKey: "navigation.title.home")
     static let homeTabBarIcon = "Home_icon"
-    static let productsTitle = "Productos"
-    static let productDetailTitle = "Detalle del Producto"
+    static let productsTitle = Localization.localizedString(fromKey: "navigation.title.products")
+    static let productDetailTitle = Localization.localizedString(fromKey: "navigation.title.detail")
 }
 
 class HomeCoordinator: Coordinator {
@@ -40,6 +41,8 @@ class HomeCoordinator: Coordinator {
         vc.title = Constants.homeTitle
         vc.tabBarItem = setUpTabBar()
         self.navigationController.viewControllers = [vc]
+        
+        Logger.showingViewSuccess.info("Showing Categories Successfully")
     }
     
     func setUpTabBar() -> UITabBarItem {
@@ -55,6 +58,8 @@ class HomeCoordinator: Coordinator {
         let vc = UIHostingController(rootView: ProductsListView(productListViewModel: productListViewModel))
         vc.title = Constants.productsTitle
         self.navigationController.pushViewController(vc, animated: true)
+        
+        Logger.showingViewSuccess.info("Showing Products by Category Successfully")
     }
     
     func navigateToProduct(withProductId id: String) {
@@ -62,5 +67,7 @@ class HomeCoordinator: Coordinator {
         let vc = UIHostingController(rootView: ProductDetailView(productDetailVM: productDetailViewModel))
         vc.title = Constants.productDetailTitle
         self.navigationController.pushViewController(vc, animated: true)
+        
+        Logger.showingViewSuccess.info("Showing Products Successfully")
     }
 }

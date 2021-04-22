@@ -11,7 +11,7 @@ import Combine
 class ProductDescriptionViewModel: ObservableObject {
     
     @Published var isLoading = false
-    @Published var description: String = "No se añadió ninguna descripción para éste producto."
+    @Published var description: String = Localization.localizedString(fromKey: "product.descriptionmessage.placeholder")
         
     init(withId descriptionId: String) {
         self.isLoading = true
@@ -30,7 +30,7 @@ class ProductDescriptionViewModel: ObservableObject {
                 break
             case .failure(_):
                 DispatchQueue.main.async {
-                    self?.description = "No se añadió ninguna descripción para éste producto."
+                    self?.description = Localization.localizedString(fromKey: "product.descriptionmessage.placeholder")
                     self?.isLoading = false
                 }
                 break

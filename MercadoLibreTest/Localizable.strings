@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  MercadoLibreTest
+
+  Created by Ricardo Grajales Duque on 21/04/21.
+  
+*/
+
+//MARK= - Navigation Titles
+"navigation.title.home" = "Inicio";
+"navigation.title.products" = "Productos";
+"navigation.title.detail" = "Detalle del Producto";
+"navigation.title.about" = "Información";
+
+//MARK= - UI
+"product.installment.placeholder" = "en";
+"product.installment.rate" = "Sin interés";
+"product.shipping.free" = "Envío gratis";
+"product.shipping.notincluded" = "No incluye el envío";
+"product.description.placeholder" = "Descripción";
+"product.descriptionmessage.placeholder" = "No se añadió ninguna descripción para éste producto.";
+"searchbar.placeholder" = "Buscar en Mercado Libre";
+"alert.error.title" = "Error";
+"aler.error.defaultmessage" = "Ocurrió un error, por favor intente de nuevo más tarde";
+"alert.error.button" = "Ok";
+"animation.loading.placeholder" = "Cargando... ";
+
+//MARK= - About
+"information.placeholder.name" = "Test Mercado Libre= ";
+"information.placeholder.version" = "Versión= ";
+"information.placeholder.developer" = "Desarrollado por= ";
+"information.placeholder.feedback" = "FeedBack= ";
+"information.value.name" = "Mobile iOS Dev";
+"information.value.developer" = "Ricardo Grajales Duque";
+"information.value.feedback" = "ricardo.grajales21@gmail.com";

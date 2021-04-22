@@ -26,7 +26,7 @@ struct ProductDescriptionView: View {
         }
         else {
             VStack(alignment: .leading) {
-                Text("Descripción")
+                Text(Localization.localizedString(fromKey: "product.description.placeholder"))
                     .bold()
                     .padding(.bottom, 5)
                 Text(descriptionVM.description)

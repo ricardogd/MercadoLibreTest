@@ -22,22 +22,26 @@ struct LoaderView: View {
                 .onAppear() {
                     self.startAnimating()
                 }
-            Text("Cargando... ")
+            Text(Localization.localizedString(fromKey: "animation.loading.placeholder"))
                 .padding()
         }
     }
     
     func startAnimating() {
-            _ = Timer.scheduledTimer(withTimeInterval: 0.015, repeats: true) { timer in
-                withAnimation {
-                    self.degress += 10.0
-                }
-                if self.degress == 360.0 {
-                    self.degress = 0.0
-                    self.isLoading.toggle()
-                }
+        
+        //Times needed to set the speed of the animation
+        _ = Timer.scheduledTimer(withTimeInterval: 0.015, repeats: true) { timer in
+            withAnimation {
+                self.degress += 10.0
+            }
+            
+            //Toggle values for each iteration 
+            if self.degress == 360.0 {
+                self.degress = 0.0
+                self.isLoading.toggle()
             }
         }
+    }
 }
 
 struct LoaderView_Previews: PreviewProvider {

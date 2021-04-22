@@ -14,12 +14,12 @@ struct ProductInstallmentsView: View {
     
     var body: some View {
         HStack {
-            Text("en")
+            Text(Localization.localizedString(fromKey: "product.installment.placeholder"))
                 .font(.system(size: 14))
             Text(payments)
                 .font(.system(size: 14))
                 .foregroundColor(CustomColors.green)
-            Text(interestRate ? "": "sin interés")
+            Text(interestRate ? "": Localization.localizedString(fromKey: "product.installment.rate"))
                 .font(.system(size: 14))
                 .foregroundColor(CustomColors.green)
         }

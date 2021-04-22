@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+///Utility class used to return the colors used by the App according to the desing defined
 enum CustomColors {
     static let lightGray = Color("Light-Gray")
     static let yellow = Color("Yellow")

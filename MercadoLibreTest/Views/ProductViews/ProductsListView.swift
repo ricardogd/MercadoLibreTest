@@ -57,6 +57,11 @@ struct ProductsListView: View {
                 .padding(.bottom, 1)
             }
         }
+        .alert(isPresented: $productListViewModel.showErrorAlert, content: {
+            Alert(title: Text(Localization.localizedString(fromKey: "alert.error.title")),
+                  message: Text(productListViewModel.errorMessage),
+                  dismissButton: .default(Text(Localization.localizedString(fromKey: "alert.error.button"))))
+        })
     }
 }
 

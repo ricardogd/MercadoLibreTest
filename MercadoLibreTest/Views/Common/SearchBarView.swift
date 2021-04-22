@@ -18,7 +18,7 @@ struct SearchBarView: UIViewRepresentable {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = context.coordinator
         
-        searchBar.placeholder = "Buscar en Mercado Libre"
+        searchBar.placeholder = Localization.localizedString(fromKey: "searchbar.placeholder")
         searchBar.autocapitalizationType = .none
         searchBar.searchBarStyle = .minimal
         searchBar.searchTextField.backgroundColor = .white

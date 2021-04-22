@@ -24,24 +24,24 @@ struct AboutView: View {
             VStack {
                 List {
                     HStack {
-                        Text("Test Mercado Libre:")
+                        Text(Localization.localizedString(fromKey: "information.placeholder.name"))
                             .bold()
-                        Text("Mobile iOS Dev")
+                        Text(Localization.localizedString(fromKey: "information.value.name"))
                     }
                     HStack {
-                        Text("Versión:")
+                        Text(Localization.localizedString(fromKey: "information.placeholder.version"))
                             .bold()
                         Text(appVersion ?? "N/A")
                     }
                     HStack {
-                        Text("Desarrollado por:")
+                        Text(Localization.localizedString(fromKey: "information.placeholder.developer"))
                             .bold()
-                        Text("Ricardo Grajales")
+                        Text(Localization.localizedString(fromKey: "information.value.developer"))
                     }
                     HStack {
-                        Text("FeedBack:")
+                        Text(Localization.localizedString(fromKey: "information.placeholder.feedback"))
                             .bold()
-                        Text("ricardo.grajales21@gmail.com")
+                        Text(Localization.localizedString(fromKey: "information.value.feedback"))
                     }
                 }
             }
