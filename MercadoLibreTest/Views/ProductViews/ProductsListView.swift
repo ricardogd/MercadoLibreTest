@@ -42,7 +42,7 @@ struct ProductsListView: View {
             else {
                 //Products List
                 ScrollView {
-                    VStack {
+                    LazyVStack {
                         ForEach(productListViewModel.products, id: \.id) { product in
                             let productItemViewModel = ProductItemViewModel(product: product)
                             ProductListItem(productItemViewModel: productItemViewModel)

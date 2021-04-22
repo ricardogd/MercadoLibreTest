@@ -41,7 +41,7 @@ struct HomeView: View {
             else if homeViewModel.showProductList {
                 //Products List
                 ScrollView {
-                    VStack {
+                    LazyVStack {
                         ForEach(homeViewModel.products, id: \.id) { product in
                             let productItemViewModel = ProductItemViewModel(product: product)
                             ProductListItem(productItemViewModel: productItemViewModel)
@@ -58,7 +58,7 @@ struct HomeView: View {
             else {
                 //Categories List
                 ScrollView {
-                    VStack {
+                    LazyVStack {
                         ForEach(homeViewModel.categories, id: \.id) { category in
                             let categoryListItemVM = CategoryListItemViewModel(categoryDetail: category)
                             CategoryListItem(categoryListItemVM: categoryListItemVM)

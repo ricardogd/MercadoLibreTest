@@ -28,7 +28,7 @@ struct ProductDetailView: View {
             }
             else {
                 ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading) {
+                    LazyVStack(alignment: .leading) {
                         TabView() {
                             ForEach(productDetailVM.detailImages, id: \.id) { image in
                                 Image(uiImage: image.image)
