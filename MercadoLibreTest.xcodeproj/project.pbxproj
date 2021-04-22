@@ -256,14 +256,12 @@
 				53EB0D8326294155005A2075 /* Views */,
 				53EB0D822629412F005A2075 /* Controllers */,
 				53EB0E0C262BF603005A2075 /* Storyboards */,
+				53F6EA3A2631492100ACCF93 /* Resources */,
+				53F6EA3B2631494800ACCF93 /* Utility */,
 				53EB0D4F26293F99005A2075 /* AppDelegate.swift */,
 				53EB0D5126293F99005A2075 /* SceneDelegate.swift */,
-				53EB0D5526293F9F005A2075 /* Assets.xcassets */,
 				53EB0D5D26293F9F005A2075 /* Info.plist */,
 				53EB0D5726293F9F005A2075 /* Preview Content */,
-				53F6EA2626311D6000ACCF93 /* Logger.swift */,
-				53F6EA2D2631243600ACCF93 /* Localization.swift */,
-				53F6EA322631269300ACCF93 /* Localizable.strings */,
 			);
 			path = MercadoLibreTest;
 			sourceTree = "<group>";
@@ -426,6 +424,24 @@
 				53EB0DB72629CDB8005A2075 /* Main.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		53F6EA3A2631492100ACCF93 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				53F6EA322631269300ACCF93 /* Localizable.strings */,
+				53EB0D5526293F9F005A2075 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		53F6EA3B2631494800ACCF93 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				53F6EA2626311D6000ACCF93 /* Logger.swift */,
+				53F6EA2D2631243600ACCF93 /* Localization.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

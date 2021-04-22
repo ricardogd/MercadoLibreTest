@@ -26,10 +26,10 @@
 "animation.loading.placeholder" = "Cargando... ";
 
 //MARK= - About
-"information.placeholder.name" = "Test Mercado Libre= ";
-"information.placeholder.version" = "Versión= ";
-"information.placeholder.developer" = "Desarrollado por= ";
-"information.placeholder.feedback" = "FeedBack= ";
+"information.placeholder.name" = "Test Mercado Libre: ";
+"information.placeholder.version" = "Versión: ";
+"information.placeholder.developer" = "Desarrollado por: ";
+"information.placeholder.feedback" = "FeedBack: ";
 "information.value.name" = "Mobile iOS Dev";
 "information.value.developer" = "Ricardo Grajales Duque";
 "information.value.feedback" = "ricardo.grajales21@gmail.com";
