@@ -25,10 +25,12 @@ class ProductListViewModel: ObservableObject {
     var productServiceType: ProductServiceType?
     var errorMessage: String = ""
     var searchText : String = ""
+    var searchedText: String = ""
     var shouldSearchForProduct : Bool = false {
         didSet {
             paging = nil
             products = []
+            searchedText = searchText
             self.isLoading = true
             searchForProduct(withOffset: 0)
         }
@@ -45,7 +47,7 @@ class ProductListViewModel: ObservableObject {
     //MARK: - Service Calls
     func searchForProduct(withOffset offset: Int) {
         productServiceType = .searchProducts
-        serviceProvider.searchForProduct(forSite: "MCO", with: searchText, withOffset: offset) { [weak self] (result) in
+        serviceProvider.searchForProduct(forSite: "MCO", with: searchedText, withOffset: offset) { [weak self] (result) in
             switch result {
             case .success(let products):
                 DispatchQueue.main.async {

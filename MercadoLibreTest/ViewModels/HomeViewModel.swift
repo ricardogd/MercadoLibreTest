@@ -25,10 +25,12 @@ class HomeViewModel: ObservableObject {
     var paging: Paging?
     var errorMessage: String = ""
     var searchText : String = ""
+    var searchedText : String = ""
     var shouldSearchForProduct : Bool = false {
         didSet {
             paging = nil
             products = []
+            searchedText = searchText
             self.isLoading = true
             searchForProduct(withOffset: 0)
         }
@@ -96,7 +98,7 @@ class HomeViewModel: ObservableObject {
     
     func searchForProduct(withOffset offset: Int) {
         let serviceProvider = ServiceProvider.productsClient
-        serviceProvider.searchForProduct(forSite: "MCO", with: searchText, withOffset: offset) { [weak self] (result) in
+        serviceProvider.searchForProduct(forSite: "MCO", with: searchedText, withOffset: offset) { [weak self] (result) in
             switch result {
             case .success(let products):
                 DispatchQueue.main.async {
