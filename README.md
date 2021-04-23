@@ -46,7 +46,7 @@ Since this application doesn't add any third party dependendies; in order to be 
 git clone https://github.com/ricardogd/MercadoLibreTest.git
 ```
 
-2. Uses `master` branch 
+2. Use `master` branch 
 
 ## App Tests
 
@@ -57,14 +57,5 @@ The unit tests for this app were added to the containres of the business rules i
 Unit Tests Coverage |
  | ------------- 
 <img width="1290" alt="Unit_Test_Coverage" src="https://user-images.githubusercontent.com/22625767/115938149-4c119080-a45f-11eb-980e-f95322f27515.png">|
-
-### Test Cases
-
-
-
-
-
-
-
 
 
