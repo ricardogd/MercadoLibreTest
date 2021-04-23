@@ -22,11 +22,15 @@ class HomeViewModel: ObservableObject {
     //MARK: - Variables
     weak var coordinator: HomeCoordinator?
     let serviceProvider = ServiceProvider.categoriesClient
+    var paging: Paging?
     var errorMessage: String = ""
     var searchText : String = ""
     var shouldSearchForProduct : Bool = false {
         didSet {
-            searchForProduct()
+            paging = nil
+            products = []
+            self.isLoading = true
+            searchForProduct(withOffset: 0)
         }
     }
 
@@ -90,16 +94,14 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func searchForProduct() {
+    func searchForProduct(withOffset offset: Int) {
         let serviceProvider = ServiceProvider.productsClient
-        DispatchQueue.main.async {
-            self.isLoading = true
-        }
-        serviceProvider.searchForProduct(forSite: "MCO", with: searchText) { [weak self] (result) in
+        serviceProvider.searchForProduct(forSite: "MCO", with: searchText, withOffset: offset) { [weak self] (result) in
             switch result {
             case .success(let products):
                 DispatchQueue.main.async {
-                    self?.products = products.products
+                    self?.paging = products.paging
+                    self?.products.append(contentsOf: products.products)
                     self?.showProductList = true
                     self?.isLoading = false
                     
@@ -116,6 +118,17 @@ class HomeViewModel: ObservableObject {
 
                 break
             }
+        }
+    }
+    
+    func getMoreProducts() {
+        guard var paging = self.paging else {
+            return
+        }
+        
+        paging.offset = paging.offset + 50
+        if paging.offset <= paging.total {
+            searchForProduct(withOffset: paging.offset)
         }
     }
     

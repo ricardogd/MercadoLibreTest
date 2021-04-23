@@ -13,19 +13,30 @@ class ProductsService: ProductsServiceClient {
     let session = URLSession(configuration: .default)
     
     //MARK: - Get Category Products
-    func getProductByCategory(forSite siteId: String, with categoryId: String, handler: @escaping (Result<Products, ServiceErrors>) -> Void) {
+    func getProductByCategory(forSite siteId: String, with categoryId: String, withOffset offset: Int, handler: @escaping (Result<Products, ServiceErrors>) -> Void) {
         
         //Building URL
+        let queryItem = URLQueryItem(name: Constants.categoryKey,value: categoryId)
+        let offset = URLQueryItem(name: Constants.offsetKey, value: String(offset))
         let path = URLBuilder().getProductsByCategoryPath()
-        let partialPath = path.replacingOccurrences(of: "{SITE_ID}", with: siteId)
-        let fullPath = partialPath.replacingOccurrences(of: "{CATEGORY_ID}", with: categoryId)
+        let fullPath = path.replacingOccurrences(of: "{SITE_ID}", with: siteId)
         guard let url = URL(string: fullPath) else {
             Logger.buildURLError.error("Error creating the URL for get products by category service call")
             return handler(.failure(.unableToParseURL))
         }
         
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            Logger.buildURLError.error("Error creating the URL for search product service call")
+            return handler(.failure(.unableToParseURL))
+        }
+        components.queryItems = [queryItem, offset]
+        guard let composedUrl = components.url else {
+            Logger.buildURLError.error("Error creating the URL for search product service call")
+            return handler(.failure(.unableToParseURL))
+        }
+        
         //Creating Request
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: composedUrl)
         request.httpMethod = ServiceCommonHeaders.httpGet
         request.setValue(ServiceCommonHeaders.applicationJSON, forHTTPHeaderField: ServiceCommonHeaders.contentTypeKey)
         request.setValue(ServiceCommonHeaders.applicationJSON, forHTTPHeaderField: ServiceCommonHeaders.acceptKey)
@@ -72,10 +83,11 @@ class ProductsService: ProductsServiceClient {
     
     
     //MARK: - Search Product
-    func searchForProduct(forSite siteId: String, with query: String, handler: @escaping (Result<Products, ServiceErrors>) -> Void) {
+    func searchForProduct(forSite siteId: String, with query: String, withOffset offset: Int, handler: @escaping (Result<Products, ServiceErrors>) -> Void) {
         
         //Building URL
         let queryItem = URLQueryItem(name: Constants.queryKey,value: query)
+        let offset = URLQueryItem(name: Constants.offsetKey, value: String(offset))
         let path = URLBuilder().getSearchForProductPath()
         let fullPath = path.replacingOccurrences(of: "{SITE_ID}", with: siteId)
         guard let url = URL(string: fullPath) else {
@@ -87,7 +99,7 @@ class ProductsService: ProductsServiceClient {
             Logger.buildURLError.error("Error creating the URL for search product service call")
             return handler(.failure(.unableToParseURL))
         }
-        components.queryItems = [queryItem]
+        components.queryItems = [queryItem, offset]
         guard let composedUrl = components.url else {
             Logger.buildURLError.error("Error creating the URL for search product service call")
             return handler(.failure(.unableToParseURL))
@@ -143,5 +155,7 @@ class ProductsService: ProductsServiceClient {
 extension ProductsService {
     enum Constants {
         static let queryKey = "q"
+        static let categoryKey = "category"
+        static let offsetKey = "offset"
     }
 }

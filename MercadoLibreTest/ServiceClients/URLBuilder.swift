@@ -25,7 +25,7 @@ struct URLBuilder {
     }
     
     func getProductsByCategoryPath() -> String {
-        return domain + "/sites/{SITE_ID}/search?category={CATEGORY_ID}"
+        return domain + "/sites/{SITE_ID}/search"
     }
     
     func getSearchForProductPath() -> String {

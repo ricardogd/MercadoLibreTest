@@ -49,6 +49,11 @@ struct ProductsListView: View {
                                 .onTapGesture {
                                     productListViewModel.navigateToProduct(withProductId: product.id)
                                 }
+                                .onAppear {
+                                    if productListViewModel.products.last?.id == product.id {
+                                        productListViewModel.getMoreProducts()
+                                    }
+                                }
                                 .frame(height: 180)
                                 .padding()
                         }

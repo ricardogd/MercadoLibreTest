@@ -18,3 +18,8 @@ struct Products: Codable {
         case products = "results"
     }
 }
+
+enum ProductServiceType {
+    case categoryProducts
+    case searchProducts
+}

@@ -20,11 +20,17 @@ class ProductListViewModel: ObservableObject {
     //MARK: - Variables
     weak var coordinator: HomeCoordinator?
     let serviceProvider = ServiceProvider.productsClient
+    var paging: Paging?
+    var categoryId: String
+    var productServiceType: ProductServiceType?
     var errorMessage: String = ""
     var searchText : String = ""
     var shouldSearchForProduct : Bool = false {
         didSet {
-            searchForProduct()
+            paging = nil
+            products = []
+            self.isLoading = true
+            searchForProduct(withOffset: 0)
         }
     }
     
@@ -32,20 +38,19 @@ class ProductListViewModel: ObservableObject {
     init(coordinator: HomeCoordinator, withCategoryId id: String) {
         self.coordinator = coordinator
         self.isLoading = true
-        getProductsByCategory(categoryId: id)
+        self.categoryId = id
+        getProductsByCategory(categoryId: id, withOffset: 0)
     }
     
     //MARK: - Service Calls
-    func searchForProduct() {
-        DispatchQueue.main.async {
-            self.isLoading = true
-        }
-        
-        serviceProvider.searchForProduct(forSite: "MCO", with: searchText) { [weak self] (result) in
+    func searchForProduct(withOffset offset: Int) {
+        productServiceType = .searchProducts
+        serviceProvider.searchForProduct(forSite: "MCO", with: searchText, withOffset: offset) { [weak self] (result) in
             switch result {
             case .success(let products):
                 DispatchQueue.main.async {
-                    self?.products = products.products
+                    self?.paging = products.paging
+                    self?.products.append(contentsOf: products.products)
                     self?.isLoading = false
                     
                     Logger.searchProductSuccess.info("Showing products for search successfully")
@@ -65,12 +70,14 @@ class ProductListViewModel: ObservableObject {
         }
     }
     
-    func getProductsByCategory(categoryId: String) {
-        serviceProvider.getProductByCategory(forSite: "MCO", with: categoryId) { [weak self] (result) in
+    func getProductsByCategory(categoryId: String, withOffset offset: Int) {
+        productServiceType = .categoryProducts
+        serviceProvider.getProductByCategory(forSite: "MCO", with: categoryId, withOffset: offset) { [weak self] (result) in
             switch result {
             case .success(let products):
                 DispatchQueue.main.async {
-                    self?.products = products.products
+                    self?.paging = products.paging
+                    self?.products.append(contentsOf: products.products)
                     self?.isLoading = false
                     
                     Logger.showingProductsSuccess.info("Showing products by category successfully")
@@ -84,6 +91,27 @@ class ProductListViewModel: ObservableObject {
                     
                     Logger.showingProductsError.error("Error showing products by category")
                 }
+                break
+            }
+        }
+    }
+    
+    func getMoreProducts() {
+        guard var paging = self.paging else {
+            return
+        }
+        
+        paging.offset = paging.offset + 50
+        if paging.offset <= paging.total {
+
+            switch productServiceType {
+            case .categoryProducts:
+                getProductsByCategory(categoryId: categoryId, withOffset: paging.offset)
+                break
+            case .searchProducts:
+                searchForProduct(withOffset: paging.offset)
+                break
+            case .none:
                 break
             }
         }
