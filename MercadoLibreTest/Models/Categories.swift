@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Category: Codable, Identifiable {
+struct CategoryModel: Codable, Identifiable {
     var id: String
     var name: String
 }
@@ -17,7 +17,7 @@ struct CategoryDetail: Codable, Identifiable {
     var name: String
     var picture: String
     
-    init(category: Category) {
+    init(category: CategoryModel) {
         id = category.id
         name = category.name
         picture = ""

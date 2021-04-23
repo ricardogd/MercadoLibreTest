@@ -12,14 +12,16 @@ class ProductDescriptionViewModel: ObservableObject {
     
     @Published var isLoading = false
     @Published var description: String = Localization.localizedString(fromKey: "product.descriptionmessage.placeholder")
+    
+    var serviceProvider: ProductDetailServiceClient
         
-    init(withId descriptionId: String) {
+    init(withId descriptionId: String, serviceProvider: ProductDetailServiceClient = ServiceProvider.productDetailClient) {
+        self.serviceProvider = serviceProvider
         self.isLoading = true
         getProductDescription(withId: descriptionId)
     }
     
     func getProductDescription(withId descriptionId: String) {
-        let serviceProvider = ServiceProvider.productDetailClient
         serviceProvider.getProductDescription(withId: descriptionId) { [weak self] (result) in
             switch result {
             case .success(let description):

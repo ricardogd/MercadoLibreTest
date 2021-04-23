@@ -19,7 +19,7 @@ class ProductListViewModel: ObservableObject {
     
     //MARK: - Variables
     weak var coordinator: HomeCoordinator?
-    let serviceProvider = ServiceProvider.productsClient
+    let serviceProvider: ProductsServiceClient
     var paging: Paging?
     var categoryId: String
     var productServiceType: ProductServiceType?
@@ -37,8 +37,9 @@ class ProductListViewModel: ObservableObject {
     }
     
     //MARK: - Constructor
-    init(coordinator: HomeCoordinator, withCategoryId id: String) {
+    init(coordinator: HomeCoordinator, withCategoryId id: String, serviceProvider: ProductsServiceClient = ServiceProvider.productsClient) {
         self.coordinator = coordinator
+        self.serviceProvider = serviceProvider
         self.isLoading = true
         self.categoryId = id
         getProductsByCategory(categoryId: id, withOffset: 0)

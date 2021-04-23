@@ -12,7 +12,7 @@ protocol CategoriesServiceClient {
     /// - Parameters:
     ///   - id: site id corresponding to each country
     ///   - handler: callback function to provide result or an error
-    func getCategories(forSite id: String, handler: @escaping (Result<[Category], ServiceErrors>) -> Void)
+    func getCategories(forSite id: String, handler: @escaping (Result<[CategoryModel], ServiceErrors>) -> Void)
     
     /// Get all the information for the category using the id.
     /// - Parameters:

@@ -19,7 +19,7 @@ struct CategoryListItem: View {
                 //Rounded Category Image
                 Image(uiImage: categoryListItemVM.image)
                     .resizable()
-                    .frame(width: geometry.size.width - 20, height: categoryListItemVM.listItemHeight)
+                    .frame(width: abs(geometry.size.width - 20), height: categoryListItemVM.listItemHeight)
                     .aspectRatio(contentMode: .fill)
                     .background(CustomColors.lightGray)
                     .cornerRadius(20)

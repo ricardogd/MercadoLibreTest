@@ -13,7 +13,7 @@ class CategoriesService: CategoriesServiceClient {
     let session = URLSession(configuration: .default)
 
     //MARK: - Get Categories
-    func getCategories(forSite id: String, handler: @escaping (Result<[Category], ServiceErrors>) -> Void) {
+    func getCategories(forSite id: String, handler: @escaping (Result<[CategoryModel], ServiceErrors>) -> Void) {
         
         //Building URL
         let path = URLBuilder().getCategoriesPath()
@@ -51,11 +51,11 @@ class CategoriesService: CategoriesServiceClient {
                 return
             }
             
-            let serviceResponse: [Category]
+            let serviceResponse: [CategoryModel]
             
             //Parsing Data
             do {
-                serviceResponse = try JSONDecoder().decode([Category].self, from: data)
+                serviceResponse = try JSONDecoder().decode([CategoryModel].self, from: data)
             } catch {
                 Logger.parsingError.error("get categories parsing error: \(error.localizedDescription)")
                 let json = String(data: data, encoding: .utf8)

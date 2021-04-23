@@ -21,7 +21,8 @@ class HomeViewModel: ObservableObject {
     
     //MARK: - Variables
     weak var coordinator: HomeCoordinator?
-    let serviceProvider = ServiceProvider.categoriesClient
+    let productServiceProvider: ProductsServiceClient
+    let categoriesServiceProvider: CategoriesServiceClient
     var paging: Paging?
     var errorMessage: String = ""
     var searchText : String = ""
@@ -37,15 +38,19 @@ class HomeViewModel: ObservableObject {
     }
 
     //MARK: - Constructor
-    init(coordinator: HomeCoordinator) {
+    init(coordinator: HomeCoordinator,
+         productServiceProvider: ProductsServiceClient = ServiceProvider.productsClient,
+         categoriesServiceProvider: CategoriesServiceClient = ServiceProvider.categoriesClient) {
         self.coordinator = coordinator
+        self.productServiceProvider = productServiceProvider
+        self.categoriesServiceProvider = categoriesServiceProvider
         self.isLoading = true
         getCategories()
     }
     
     //MARK: - Service Calls
     func getCategories() {
-        serviceProvider.getCategories(forSite: "MCO") { [weak self] (result) in
+        categoriesServiceProvider.getCategories(forSite: "MCO") { [weak self] (result) in
             switch result {
             case .success(let categories):
                 self?.getCategoriesWithImages(categories: categories)
@@ -62,7 +67,7 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func getCategoriesWithImages(categories: [Category]) {
+    func getCategoriesWithImages(categories: [CategoryModel]) {
         let dispatchGroup = DispatchGroup()
         var categoriesDetail: [CategoryDetail] = []
         
@@ -70,7 +75,7 @@ class HomeViewModel: ObservableObject {
             
             dispatchGroup.enter()
             
-            serviceProvider.getCategoriesWithImages(forCategory: category.id) { (result) in
+            categoriesServiceProvider.getCategoriesWithImages(forCategory: category.id) { (result) in
                 switch result {
                 case .success(let categoryDetail):
                     categoriesDetail.append(categoryDetail)
@@ -97,8 +102,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func searchForProduct(withOffset offset: Int) {
-        let serviceProvider = ServiceProvider.productsClient
-        serviceProvider.searchForProduct(forSite: "MCO", with: searchedText, withOffset: offset) { [weak self] (result) in
+        productServiceProvider.searchForProduct(forSite: "MCO", with: searchedText, withOffset: offset) { [weak self] (result) in
             switch result {
             case .success(let products):
                 DispatchQueue.main.async {

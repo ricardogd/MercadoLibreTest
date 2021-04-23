@@ -27,13 +27,19 @@ class ProductDetailViewModel: ObservableObject {
     
     //MARK: - Variables
     weak var coordinator: HomeCoordinator?
-    let serviceProvider = ServiceProvider.productDetailClient
+    let serviceProvider: ProductDetailServiceClient
+    let getImageServiceProvider: GetImageServiceClient
     var productDetail: ProductDetail?
     var errorMessage: String = ""
 
     //MARK: - Constructor
-    init(coordinator: HomeCoordinator, withProductId id: String) {
+    init(coordinator: HomeCoordinator,
+         withProductId id: String,
+         serviceProvider: ProductDetailServiceClient = ServiceProvider.productDetailClient,
+         getImageServiceProvider: GetImageServiceClient = ServiceProvider.getImageClient) {
         self.coordinator = coordinator
+        self.serviceProvider = serviceProvider
+        self.getImageServiceProvider = getImageServiceProvider
         self.isLoading = true
         getProductDetail(productId: id)
     }
@@ -60,14 +66,13 @@ class ProductDetailViewModel: ObservableObject {
     }
 
     func getProductImages(detailImages: [DetailImage]) {
-        let serviceProvider = ServiceProvider.getImageClient
         let dispatchGroup = DispatchGroup()
         var images: [CarouselImage] = []
         
         for image in detailImages {
             dispatchGroup.enter()
             
-            serviceProvider.getImage(fromURL: image.secureUrl) { (result) in
+            getImageServiceProvider.getImage(fromURL: image.secureUrl) { (result) in
                 switch result {
                 case .success(let data):
                     let newImage = UIImage(data: data) ?? UIImage(named: "CategoryPlaceHolder") ?? UIImage()

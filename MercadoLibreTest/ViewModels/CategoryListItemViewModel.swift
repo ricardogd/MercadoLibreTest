@@ -16,8 +16,12 @@ class CategoryListItemViewModel: ObservableObject {
     @Published var image: UIImage = UIImage(named: "CategoryPlaceHolder") ?? UIImage()
     @Published var listItemHeight: CGFloat = 0
     
+    //MARK: - Variables
+    var serviceProvider: GetImageServiceClient
+    
     //MARK: - Constructor
-    init(categoryDetail: CategoryDetail) {
+    init(categoryDetail: CategoryDetail, serviceProvider: GetImageServiceClient = ServiceProvider.getImageClient) {
+        self.serviceProvider = serviceProvider
         name = categoryDetail.name
         getImage(fromURL: categoryDetail.picture)
         getCategoryListItemHeight()
@@ -25,7 +29,6 @@ class CategoryListItemViewModel: ObservableObject {
     
     //MARK: - Service Calls
     func getImage(fromURL url: String) {
-        let serviceProvider = ServiceProvider.getImageClient
         serviceProvider.getImage(fromURL: url) { [weak self] (result) in
             switch result {
             case .success(let data):
