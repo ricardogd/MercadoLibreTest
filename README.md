@@ -52,7 +52,7 @@ git clone https://github.com/ricardogd/MercadoLibreTest.git
 
 ### Unit Tests
 
-The unit tests for this app were added to the containres of the business rules in this case the view models, covering over 90% of each view model created.
+The unit tests for this app were added to the containers of the business rules in this case the view models, covering over 90% of each view model created.
 
 Unit Tests Coverage |
  | ------------- 
