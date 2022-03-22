@@ -34,11 +34,12 @@ struct ProductDetailView: View {
                                 Image(uiImage: image.image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: imageSize, height: imageSize, alignment: .center)
+//                                    .frame(width: imageSize, height: imageSize, alignment: .center)
                             }
                         }
                         .tabViewStyle(PageTabViewStyle())
                         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+                        .frame(width: imageSize, height: imageSize, alignment: .center)
                         
                         VStack(alignment: .leading) {
                             Text(productDetailVM.title)
